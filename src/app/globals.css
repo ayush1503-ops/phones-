@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-archivo), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-plex), "SFMono-Regular", monospace;
+
+  /* Dumbphones India — editorial palette drawn from the brand's navy + gold identity */
+  --color-paper: #f3efe4;
+  --color-cream: #faf7ec;
+  --color-sand: #ece5d2;
+  --color-line: #ddd4bf;
+  --color-line-dark: #c9bfa4;
+
+  --color-ink: #141c33;
+  --color-ink-2: #1d2a4d;
+  --color-royal: #2b3e97;
+  --color-royal-bright: #3b52c4;
+
+  --color-gold: #bd9434;
+  --color-gold-deep: #a37f24;
+  --color-gold-soft: #ecdfba;
+
+  --color-mute: #6f6a58;
+  --color-faint: #9a9379;
+  --color-danger: #a43a1c;
+  --color-success: #2e6b3e;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-royal);
+  color: var(--color-cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-royal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@layer components {
+  .container-x {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1240px;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x { padding-inline: 2rem; }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 1rem 1.75rem;
+    border: 1px solid transparent;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .btn-primary:hover {
+    background: var(--color-royal);
+    transform: translateY(-1px);
+  }
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .btn-gold:hover {
+    background: var(--color-gold-deep);
+    color: var(--color-cream);
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .btn-ghost-light {
+    border-color: rgba(250, 247, 236, 0.35);
+    color: var(--color-cream);
+  }
+  .btn-ghost-light:hover {
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+  .btn[disabled] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.32rem 0.65rem;
+    border: 1px solid var(--color-line);
+    color: var(--color-mute);
+    background: var(--color-cream);
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+  }
+
+  .field {
+    width: 100%;
+    background: var(--color-cream);
+    border: 1px solid var(--color-line);
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    color: var(--color-ink);
+    transition: border-color 0.2s;
+  }
+  .field::placeholder { color: var(--color-faint); }
+  .field:focus { outline: none; border-color: var(--color-royal); }
+
+  .field-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+    margin-bottom: 0.45rem;
+  }
+
+  /* Long-form policy typography */
+  .legal h2 {
+    font-family: var(--font-display);
+    font-weight: 560;
+    font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+    line-height: 1.15;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-ink);
+  }
+  .legal h3 {
+    font-family: var(--font-sans);
+    font-weight: 650;
+    font-size: 1.02rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-ink);
+  }
+  .legal p, .legal li {
+    font-size: 0.93rem;
+    line-height: 1.85;
+    color: #45413a;
+  }
+  .legal p { margin-bottom: 1rem; }
+  .legal ul, .legal ol {
+    margin: 0 0 1.25rem 1.25rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .legal ul { list-style: disc; }
+  .legal ol { list-style: decimal; }
+  .legal strong { color: var(--color-ink); font-weight: 650; }
+  .legal a { color: var(--color-royal); text-decoration: underline; text-underline-offset: 3px; }
+  .legal .clause {
+    border-left: 2px solid var(--color-gold-soft);
+    padding-left: 1.25rem;
+    margin-bottom: 1.1rem;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Thin elegant scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-paper); }
+::-webkit-scrollbar-thumb { background: var(--color-line-dark); border: 3px solid var(--color-paper); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold); }
