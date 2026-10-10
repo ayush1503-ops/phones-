@@ -35,13 +35,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(CART_KEY);
-      if (raw) setItems(JSON.parse(raw));
-    } catch {
-      /* corrupted cart — start fresh */
-    }
-    setHydrated(true);
+    const frame = requestAnimationFrame(() => {
+      try {
+        const raw = localStorage.getItem(CART_KEY);
+        if (raw) setItems(JSON.parse(raw));
+      } catch {
+        /* corrupted cart — start fresh */
+      }
+      setHydrated(true);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -129,13 +132,16 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(WISH_KEY);
-      if (raw) setSlugs(JSON.parse(raw));
-    } catch {
-      /* ignore */
-    }
-    setHydrated(true);
+    const frame = requestAnimationFrame(() => {
+      try {
+        const raw = localStorage.getItem(WISH_KEY);
+        if (raw) setSlugs(JSON.parse(raw));
+      } catch {
+        /* ignore */
+      }
+      setHydrated(true);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

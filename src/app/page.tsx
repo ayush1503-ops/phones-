@@ -196,7 +196,7 @@ export default function HomePage() {
           >
             <div className="relative aspect-[16/10] sm:aspect-[16/7] lg:aspect-[16/6]">
               <Image
-                src="/images/products/f25-pro-banner.webp"
+                src="https://dumbphones.co.in/wp-content/uploads/2026/05/Duoqin-F25-Pro-1024x546.webp"
                 alt="Duoqin F25 Pro — Android 14 smart touchscreen phone"
                 fill
                 sizes="100vw"
@@ -263,8 +263,8 @@ export default function HomePage() {
             const count = PRODUCTS.filter((p) => p.category === cat.slug).length;
             const img =
               cat.slug === "phones"
-                ? "/images/products/f25-pro-2.webp"
-                : "/images/products/cats22-battery-1.jpeg";
+                ? "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-10.webp"
+                : "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM-1.jpeg";
             return (
               <Reveal key={cat.slug} delay={i * 0.08}>
                 <Link
@@ -308,8 +308,8 @@ export default function HomePage() {
             <Reveal y={30}>
               <div className="relative mx-auto aspect-[4/4.8] max-w-sm overflow-hidden rounded-t-[9rem] border border-cream/20">
                 <Image
-                  src="/images/about/vintage-nokia.png"
-                  alt="A vintage keypad phone — the spirit of deliberate technology"
+                  src="https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version.jpeg"
+                  alt="A camera-free Qin keypad phone"
                   fill
                   sizes="(min-width: 1024px) 40vw, 90vw"
                   className="object-cover"

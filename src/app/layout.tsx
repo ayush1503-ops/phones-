@@ -1,31 +1,20 @@
 import type { Metadata } from "next";
-import { Fraunces, Archivo, IBM_Plex_Mono } from "next/font/google";
+import "@fontsource-variable/fraunces/wght.css";
+import "@fontsource-variable/fraunces/wght-italic.css";
+import "@fontsource-variable/archivo/index.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
 import "./globals.css";
 import { CartProvider, WishlistProvider } from "@/lib/store";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  style: ["normal", "italic"],
-  axes: ["opsz"],
-});
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  variable: "--font-archivo",
-});
-
-const plex = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-plex",
-  weight: ["400", "500"],
-});
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dumbphones.co.in"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
+  ),
   title: {
     default: "Dumbphones India — Minimalist Keypad & Compact Phones",
     template: "%s — Dumbphones India",
@@ -46,7 +35,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${archivo.variable} ${plex.variable}`}>
+    <html lang="en" >
       <body className="flex min-h-screen flex-col">
         <CartProvider>
           <WishlistProvider>
