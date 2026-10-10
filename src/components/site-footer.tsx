@@ -86,7 +86,7 @@ export function SiteFooter() {
       <div className="container-x grid gap-12 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
         <div>
           <Image
-            src="/images/brand/logo.png"
+            src="/images/brand/logo.svg"
             alt="Dumbphones India"
             width={150}
             height={56}

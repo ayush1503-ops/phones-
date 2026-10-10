@@ -16,8 +16,8 @@ import { STORE } from "@/lib/data";
 const NEXT_STEPS = [
   {
     icon: MessageCircle,
-    title: "Confirmation on WhatsApp",
-    text: "You'll receive an order confirmation by email / SMS / WhatsApp on your registered contact details.",
+    title: "Contact the team",
+    text: "Send your order number on WhatsApp so the team can confirm stock and arrange payment or COD handling.",
   },
   {
     icon: PackageCheck,
@@ -46,7 +46,7 @@ export function OrderSuccess() {
         <CheckCircle2 className="mx-auto size-12 text-success" strokeWidth={1.4} />
         <p className="kicker mt-6">Thank you for choosing deliberate living</p>
         <h1 className="mt-3 font-display text-4xl font-medium text-ink md:text-5xl">
-          Order confirmed.
+          Request received.
         </h1>
         {order ? (
           <p className="mt-4 font-mono text-sm text-ink">
@@ -56,13 +56,23 @@ export function OrderSuccess() {
           <p className="mt-4 text-sm text-mute">Your order has been received.</p>
         )}
         <p className="mx-auto mt-4 max-w-lg text-[0.92rem] leading-relaxed text-mute">
-          Keep your order number safe — you'll need it (with your registered mobile number) to track
-          your shipment. As per our Shipping Policy, please photograph the sealed box on arrival and
-          record a continuous unboxing video; both are required for any return or replacement claim.
+          Your order is not yet confirmed or paid. Please contact our team with this order number
+          to confirm stock and arrange payment or COD handling. Keep your order number and registered
+          mobile number to check its status later.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link href={`/track-order?order=${order ?? ""}`} className="btn btn-primary">
-            Track this order <ArrowRight className="size-3.5" />
+          {order && (
+            <a
+              href={`https://wa.me/919136112273?text=${encodeURIComponent(`Hi, I submitted order request ${order}. Please confirm availability and payment details.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              Contact on WhatsApp <ArrowRight className="size-3.5" />
+            </a>
+          )}
+          <Link href={`/track-order?order=${order ?? ""}`} className="btn btn-outline">
+            Check request status <ArrowRight className="size-3.5" />
           </Link>
           <Link href="/shop" className="btn btn-outline">
             Keep browsing

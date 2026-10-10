@@ -5,9 +5,8 @@ import type { Category, Product, Review } from "./types";
  * Product names, pricing, discounting, variant options, stock status, imagery,
  * descriptions and policy copy are reproduced from the original website.
  *
- * In production this layer is replaced by a live sync from the WooCommerce
- * REST API (products, variations, stock, orders) — see src/lib/data.ts note
- * in the handover documentation.
+ * This is a static snapshot, NOT a live stock or pricing feed. Update and
+ * redeploy it after checking the real store; see README.md before going live.
  */
 
 export const STORE = {
@@ -64,13 +63,13 @@ export const CATEGORIES: Category[] = [
     name: "Phones",
     blurb:
       "Discover easy-to-use, long-lasting keypad and compact phones — perfect for those who value simplicity and strong battery life.",
-    image: "/images/products/f25-pro-1.webp",
+    image: "https://dumbphones.co.in/wp-content/uploads/2026/02/Qin-F25-Pro-1.webp",
   },
   {
     slug: "accessories",
     name: "Accessories",
     blurb: "Genuine spares and add-ons that keep your dumbphone running for years.",
-    image: "/images/products/cats22-battery-1.jpeg",
+    image: "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM-1.jpeg",
   },
 ];
 
@@ -102,10 +101,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: false,
     newArrival: true,
     images: [
-      "/images/products/f25-pro-1.webp",
-      "/images/products/f25-pro-2.webp",
-      "/images/products/f25-pro-3.webp",
-      "/images/products/f25-pro-4.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/Qin-F25-Pro-1.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-10.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-7.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-9.webp",
     ],
     variants: colorVariants([BLACK], 22999, 28899, true),
     highlights: [
@@ -138,10 +137,10 @@ export const PRODUCTS: Product[] = [
     tagline: "5G QWERTY smartphone — retro design, modern power.",
     price: 49999,
     mrp: 55999,
-    inStock: true,
+    inStock: false,
     bestSeller: false,
     newArrival: true,
-    images: ["/images/products/titan-2-1.webp", "/images/products/titan-2-2.webp"],
+    images: ["https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2.webp", "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0010.webp"],
     variants: colorVariants([BLACK], 49999, 55999, true),
     highlights: [
       "Physical QWERTY keyboard",
@@ -178,7 +177,7 @@ export const PRODUCTS: Product[] = [
     inStock: false,
     bestSeller: true,
     newArrival: true,
-    images: ["/images/products/jelly-star-1.webp", "/images/products/jelly-star-2.png"],
+    images: ["https://dumbphones.co.in/wp-content/uploads/2025/10/Unihertz-Jelly-Star.webp", "https://dumbphones.co.in/wp-content/uploads/2025/10/jelly-star-red-2.png"],
     variants: colorVariants([BLACK, BLUE, RED], 24999, null, false),
     highlights: [
       "Android 13",
@@ -227,10 +226,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: true,
     newArrival: false,
     images: [
-      "/images/products/f22-pro-1.jpeg",
-      "/images/products/f22-pro-2.jpeg",
-      "/images/products/f22-pro-3.jpeg",
-      "/images/products/f22-pro-4.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.58-PM-1.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.58-PM.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.59-PM.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.59-PM-1.jpeg",
     ],
     variants: colorVariants([BLACK, WHITE], 18799, 24599, true),
     highlights: [
@@ -275,10 +274,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: false,
     newArrival: false,
     images: [
-      "/images/products/f22-nocam-1.jpeg",
-      "/images/products/f22-nocam-2.jpeg",
-      "/images/products/f22-nocam-3.jpeg",
-      "/images/products/f22-nocam-4.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version-1.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version-7.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version-6.jpeg",
     ],
     variants: colorVariants([BLACK, WHITE], 12799, 16699, true),
     highlights: [
@@ -342,10 +341,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: true,
     newArrival: false,
     images: [
-      "/images/products/f21-pro-1.jpeg",
-      "/images/products/f21-pro-2.jpeg",
-      "/images/products/f21-pro-3.jpeg",
-      "/images/products/f21-pro-4.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.37-PM-1.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.37-PM.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.38-PM.jpeg",
+      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.38-PM-1.jpeg",
     ],
     variants: colorVariants([BLACK, WHITE], 15599, 20299, true),
     highlights: [
@@ -399,10 +398,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: false,
     newArrival: true,
     images: [
-      "/images/products/bluefox-nx1-1.webp",
-      "/images/products/bluefox-nx1-2.webp",
-      "/images/products/bluefox-nx1-3.webp",
-      "/images/products/bluefox-nx1-4.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/18.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/BLUEFOX-Nx18128GB-black.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/BLUEFOX-Nx18128GB-Blue.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2025/10/21.webp",
     ],
     variants: colorVariants([BLACK, BLUE, WHITE], 17799, 23199, true),
     highlights: [
@@ -460,7 +459,7 @@ export const PRODUCTS: Product[] = [
     inStock: true,
     bestSeller: false,
     newArrival: false,
-    images: ["/images/products/cats22-battery-1.jpeg", "/images/products/cats22-battery-2.jpeg"],
+    images: ["https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM-1.jpeg", "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM.jpeg"],
     variants: [
       { name: "Buy 1", price: 499, mrp: null, inStock: true },
       { name: "Buy 3", price: 999, mrp: null, inStock: true },

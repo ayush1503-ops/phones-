@@ -3,8 +3,8 @@ import { pgTable, text, integer, jsonb, timestamp, serial } from "drizzle-orm/pg
 /**
  * Persistence layer for the redesigned storefront.
  *
- * The product catalogue itself is mirrored from the live WooCommerce store in
- * src/lib/data.ts (a WooCommerce REST sync replaces it in production). These
+ * The product catalogue is a manually maintained snapshot in src/lib/data.ts.
+ * These
  * tables capture everything the shop generates at runtime: orders, support
  * requests, return/replacement requests and newsletter subscribers.
  */
@@ -21,7 +21,7 @@ export const orders = pgTable("orders", {
   state: text("state").notNull(),
   pincode: text("pincode").notNull(),
   paymentMethod: text("payment_method").notNull(), // "prepaid" | "cod"
-  status: text("status").notNull().default("confirmed"),
+  status: text("status").notNull().default("awaiting_payment"),
   items: jsonb("items").notNull(),
   subtotal: integer("subtotal").notNull(),
   shippingFee: integer("shipping_fee").notNull().default(0),

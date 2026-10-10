@@ -1,24 +1,25 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
-const databaseUrl = process.env.DATABASE_URL;
-
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL is required");
-}
-
 const globalForDb = globalThis as typeof globalThis & {
-  __arenaNextJsPostgresqlPool?: Pool;
+  __dumbphonesPool?: Pool;
 };
 
-export const pool =
-  globalForDb.__arenaNextJsPostgresqlPool ??
-  new Pool({
-    connectionString: databaseUrl,
-  });
+// Do not connect at module load: Next.js imports route modules during its build,
+// when Vercel runtime environment variables need not be present yet.
+export function getDb() {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) throw new Error("DATABASE_URL is required");
 
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.__arenaNextJsPostgresqlPool = pool;
+  let pool = globalForDb.__dumbphonesPool;
+  if (!pool) {
+    pool = new Pool({
+      connectionString: databaseUrl,
+      max: 2, // Each serverless instance may create its own pool.
+      idleTimeoutMillis: 10_000,
+      connectionTimeoutMillis: 5_000,
+    });
+    globalForDb.__dumbphonesPool = pool;
+  }
+  return drizzle(pool);
 }
-
-export const db = drizzle(pool);

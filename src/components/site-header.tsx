@@ -36,8 +36,11 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
-    setSearchOpen(false);
+    const frame = requestAnimationFrame(() => {
+      setMenuOpen(false);
+      setSearchOpen(false);
+    });
+    return () => cancelAnimationFrame(frame);
   }, [pathname]);
 
   useEffect(() => {
@@ -100,7 +103,7 @@ export function SiteHeader() {
             </button>
             <Link href="/" className="flex items-center gap-3" aria-label="Dumbphones India — home">
               <Image
-                src="/images/brand/logo.png"
+                src="/images/brand/logo.svg"
                 alt="Dumbphones India"
                 width={150}
                 height={56}
@@ -193,7 +196,7 @@ export function SiteHeader() {
           )}
         >
           <div className="flex items-center justify-between border-b border-line p-4">
-            <Image src="/images/brand/logo.png" alt="Dumbphones India" width={120} height={44} className="h-9 w-auto" />
+            <Image src="/images/brand/logo.svg" alt="Dumbphones India" width={120} height={44} className="h-9 w-auto" />
             <button
               onClick={() => setMenuOpen(false)}
               className="grid size-10 place-items-center text-ink"
@@ -233,7 +236,7 @@ export function SiteHeader() {
       </div>
 
       {/* Search overlay */}
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchOverlay key={searchOpen ? "open" : "closed"} open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
@@ -246,8 +249,8 @@ function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }
 
   useEffect(() => {
     if (open) {
-      setQuery("");
-      requestAnimationFrame(() => inputRef.current?.focus());
+      const frame = requestAnimationFrame(() => inputRef.current?.focus());
+      return () => cancelAnimationFrame(frame);
     }
   }, [open]);
 

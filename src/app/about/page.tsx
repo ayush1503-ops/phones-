@@ -33,7 +33,7 @@ export default function AboutPage() {
           <Reveal delay={0.08}>
             <div className="relative aspect-[16/10] overflow-hidden border border-line">
               <Image
-                src="/images/about/story-1.avif"
+                src="https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.58-PM-1.jpeg"
                 alt="A minimalist keypad phone, up close"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -44,7 +44,7 @@ export default function AboutPage() {
           <Reveal delay={0.16}>
             <div className="relative aspect-[16/10] overflow-hidden border border-line">
               <Image
-                src="/images/about/phones-banner.webp"
+                src="https://dumbphones.co.in/wp-content/uploads/2026/05/Duoqin-F25-Pro-1024x546.webp"
                 alt="The Dumbphones India collection"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -68,8 +68,8 @@ export default function AboutPage() {
               </h2>
               <div className="relative mt-8 aspect-[4/3.4] overflow-hidden rounded-t-[8rem] border border-line-dark">
                 <Image
-                  src="/images/about/vintage-nokia.png"
-                  alt="The classic era of phones that inspired Dumbphones India"
+                  src="https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version.jpeg"
+                  alt="A camera-free Qin keypad phone"
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover"
