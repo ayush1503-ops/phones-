@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import "@fontsource-variable/fraunces/wght.css";
-import "@fontsource-variable/fraunces/wght-italic.css";
-import "@fontsource-variable/archivo/index.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource-variable/fraunces/index.css";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/jetbrains-mono/index.css";
 import "./globals.css";
 import { CartProvider, WishlistProvider } from "@/lib/store";
 import { SiteHeader } from "@/components/site-header";
@@ -16,11 +14,11 @@ export const metadata: Metadata = {
       (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
   ),
   title: {
-    default: "Dumbphones India — Minimalist Keypad & Compact Phones",
+    default: "Dumbphones India — Keypad and Compact Android Phones",
     template: "%s — Dumbphones India",
   },
   description:
-    "India's home for minimalist keypad and compact phones. Cash on Delivery across India, in-hand Mumbai stock, every device tested before dispatch. Qin, Duoqin, Unihertz, BLUEFOX & CAT.",
+    "Shop keypad phones and compact Androids from a small team in Mumbai. Prepaid delivery is free, COD is available across India, and our team can help you choose over WhatsApp.",
   keywords: [
     "dumbphone india",
     "keypad phone",

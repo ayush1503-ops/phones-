@@ -1,127 +1,119 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Heart, Plus, Eye } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Eye, Heart, Plus } from "lucide-react";
+import clsx from "clsx";
 import type { Product } from "@/lib/types";
 import { discountPct, inr } from "@/lib/format";
 import { useCart, useWishlist } from "@/lib/store";
-import { useState } from "react";
-import clsx from "clsx";
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
   const wishlist = useWishlist();
   const cart = useCart();
   const [added, setAdded] = useState(false);
+  const reducedMotion = useReducedMotion();
   const pct = discountPct(product.price, product.mrp);
   const wished = wishlist.has(product.slug);
   const secondImage = product.images[1];
 
   return (
-    <div className="group relative flex flex-col border border-line bg-cream transition-all duration-300 hover:-translate-y-1 hover:border-line-dark hover:shadow-[0_20px_50px_rgba(20,28,51,0.09)]">
-      {/* Badges */}
-      <div className="absolute left-3 top-3 z-10 flex flex-col gap-1.5">
-        {pct && (
-          <span className="bg-gold px-2 py-1 font-mono text-[0.58rem] font-medium uppercase tracking-[0.12em] text-ink">
-            Save {pct}%
-          </span>
-        )}
-        {!product.inStock && (
-          <span className="bg-ink px-2 py-1 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-cream">
-            Out of stock
-          </span>
-        )}
-        {product.inStock && product.newArrival && (
-          <span className="border border-royal/40 bg-cream px-2 py-1 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-royal">
-            New arrival
-          </span>
-        )}
+    <motion.article
+      className="group flex h-full flex-col"
+      whileHover={reducedMotion ? undefined : { y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+    >
+      <div className="relative mb-4 aspect-[4/4.6] overflow-hidden rounded-[0.35rem] bg-[#ece8df]">
+        <Link href={`/product/${product.slug}`} className="absolute inset-0" aria-label={`View ${product.name}`}>
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className={clsx(
+              "object-contain p-5 transition-[transform,opacity] duration-500 ease-out group-hover:scale-[1.035]",
+              secondImage && "group-hover:opacity-0",
+            )}
+            priority={index < 2}
+          />
+          {secondImage && (
+            <Image
+              src={secondImage}
+              alt=""
+              fill
+              sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-contain p-5 opacity-0 transition-[transform,opacity] duration-500 ease-out group-hover:scale-[1.035] group-hover:opacity-100"
+            />
+          )}
+        </Link>
+
+        <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-1.5">
+          {pct && <span className="bg-accent px-2.5 py-1 text-[0.68rem] font-semibold text-cream">Save {pct}%</span>}
+          {!product.inStock && <span className="bg-ink px-2.5 py-1 text-[0.68rem] font-medium text-cream">Out of stock</span>}
+          {product.inStock && product.newArrival && <span className="bg-cream px-2.5 py-1 text-[0.68rem] font-medium text-ink">New</span>}
+        </div>
+
+        <motion.button
+          type="button"
+          whileTap={reducedMotion ? undefined : { scale: 0.88 }}
+          onClick={() => wishlist.toggle(product.slug)}
+          aria-label={wished ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+          aria-pressed={wished}
+          className={clsx(
+            "absolute right-3 top-3 z-10 grid size-10 place-items-center rounded-full bg-cream/95 text-ink shadow-sm transition-colors hover:text-accent",
+            wished && "text-accent",
+          )}
+        >
+          <Heart className={clsx("size-[1.05rem]", wished && "fill-current")} strokeWidth={1.8} />
+        </motion.button>
       </div>
 
-      {/* Wishlist */}
-      <button
-        onClick={() => wishlist.toggle(product.slug)}
-        aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
-        className={clsx(
-          "absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full border transition-all",
-          wished
-            ? "border-gold bg-gold text-ink"
-            : "border-line bg-cream/90 text-ink/60 hover:border-gold hover:text-ink",
-        )}
-      >
-        <Heart className={clsx("size-4", wished && "fill-current")} strokeWidth={1.8} />
-      </button>
-
-      {/* Image */}
-      <Link href={`/product/${product.slug}`} className="relative block aspect-[5/5.4] overflow-hidden bg-white">
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className={clsx(
-            "object-contain p-6 transition-all duration-700 ease-out group-hover:scale-[1.045]",
-            secondImage && "group-hover:opacity-0",
-          )}
-          priority={index < 2}
-        />
-        {secondImage && (
-          <Image
-            src={secondImage}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-            className="scale-[1.045] object-contain p-6 opacity-0 transition-all duration-700 ease-out group-hover:scale-100 group-hover:opacity-100"
-          />
-        )}
-      </Link>
-
-      {/* Body */}
-      <div className="flex flex-1 flex-col border-t border-line/70 p-4">
-        <div className="flex items-center justify-between">
-          <p className="font-mono text-[0.58rem] uppercase tracking-[0.18em] text-faint">{product.brand}</p>
-          <p className="font-mono text-[0.55rem] uppercase tracking-[0.14em] text-faint">{product.category}</p>
-        </div>
-        <Link href={`/product/${product.slug}`} className="mt-1.5">
-          <h3 className="line-clamp-2 text-[0.95rem] font-medium leading-snug text-ink transition-colors group-hover:text-royal">
+      <div className="flex flex-1 flex-col">
+        <p className="text-xs font-medium text-mute">{product.brand} <span className="px-1 text-accent">·</span> {product.category}</p>
+        <Link href={`/product/${product.slug}`} className="mt-1.5 w-fit">
+          <h3 className="font-display text-[1.35rem] font-medium leading-[1.12] tracking-[-0.025em] text-ink transition-colors group-hover:text-accent">
             {product.name}
           </h3>
         </Link>
-        <div className="mt-auto flex items-end justify-between pt-3">
+        <p className="mt-2 line-clamp-2 min-h-10 text-sm leading-6 text-mute">{product.tagline}</p>
+
+        <div className="mt-auto flex items-end justify-between gap-3 border-t border-line pt-3">
           <div>
-            <p className="font-mono text-[0.95rem] font-medium text-ink">{inr(product.price)}</p>
-            {product.mrp && (
-              <p className="font-mono text-[0.68rem] text-faint line-through">{inr(product.mrp)}</p>
-            )}
+            <p className="text-[0.96rem] font-semibold text-ink">{inr(product.price)}</p>
+            {product.mrp && <p className="mt-0.5 text-xs text-mute line-through">{inr(product.mrp)}</p>}
           </div>
           {product.inStock ? (
-            <button
+            <motion.button
+              type="button"
+              whileTap={reducedMotion ? undefined : { scale: 0.96 }}
               onClick={() => {
                 cart.add(product.slug);
                 setAdded(true);
-                setTimeout(() => setAdded(false), 1400);
+                window.setTimeout(() => setAdded(false), 1400);
               }}
               className={clsx(
-                "flex items-center gap-1.5 border px-3 py-2 font-mono text-[0.58rem] uppercase tracking-[0.12em] transition-all",
+                "inline-flex min-h-10 items-center gap-1.5 rounded-[0.35rem] border px-3 text-sm font-semibold transition-colors",
                 added
-                  ? "border-success bg-success text-cream"
-                  : "border-ink text-ink hover:bg-ink hover:text-cream",
+                  ? "border-success bg-success text-white"
+                  : "border-line-dark text-ink hover:border-ink hover:bg-ink hover:text-cream",
               )}
               aria-label={`Add ${product.name} to cart`}
             >
-              <Plus className="size-3" />
               {added ? "Added" : "Add"}
-            </button>
+              {!added && <Plus className="size-4" />}
+            </motion.button>
           ) : (
             <Link
               href={`/product/${product.slug}`}
-              className="flex items-center gap-1.5 border border-line px-3 py-2 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-mute transition-colors hover:border-ink hover:text-ink"
+              className="inline-flex min-h-10 items-center gap-1.5 rounded-[0.35rem] border border-line-dark px-3 text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink hover:text-cream"
             >
-              <Eye className="size-3" /> View
+              Details <Eye className="size-4" />
             </Link>
           )}
         </div>
       </div>
-    </div>
+    </motion.article>
   );
 }

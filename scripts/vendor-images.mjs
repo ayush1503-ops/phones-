@@ -1,14 +1,14 @@
 /**
  * One-time media import before moving dumbphones.co.in away from WordPress.
  * Run while the old site's /wp-content/uploads/ URLs are still reachable.
- * This saves the real product photos and rewrites their references to local
- * /media/ paths; commit BOTH the source changes and public/media/ to Git.
+ * This saves the real product/editorial photos, official logo and video posters,
+ * then rewrites their references to local /media/ paths; commit both the source
+ * changes and public/media/ to Git.
  */
 import { readFile, mkdir, writeFile, rename, rm } from "node:fs/promises";
 import { join, dirname } from "node:path";
 
 const files = ["src/lib/data.ts", "src/app/page.tsx", "src/app/about/page.tsx"];
-const origin = "https://dumbphones.co.in";
 const pattern = /https:\/\/dumbphones\.co\.in\/wp-content\/uploads\/[^"'\s`]+/g;
 const sources = await Promise.all(files.map((file) => readFile(file, "utf8")));
 const urls = [...new Set(sources.flatMap((text) => text.match(pattern) ?? []))];
