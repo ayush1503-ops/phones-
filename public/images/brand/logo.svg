@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="150" height="56" viewBox="0 0 150 56" role="img" aria-label="Dumbphones India">
-  <rect width="150" height="56" rx="4" fill="#141c33"/>
-  <rect x="12" y="11" width="21" height="34" rx="4" fill="none" stroke="#bd9434" stroke-width="2"/>
-  <rect x="17" y="17" width="11" height="10" rx="1" fill="#bd9434"/>
-  <circle cx="18" cy="33" r="1.4" fill="#bd9434"/><circle cx="25" cy="33" r="1.4" fill="#bd9434"/>
-  <circle cx="18" cy="39" r="1.4" fill="#bd9434"/><circle cx="25" cy="39" r="1.4" fill="#bd9434"/>
-  <text x="42" y="26" fill="#faf7ec" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="-0.6">DUMBPHONES</text>
-  <text x="43" y="39" fill="#bd9434" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="3">INDIA</text>
-</svg>

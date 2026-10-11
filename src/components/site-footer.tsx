@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
-import { MapPin, Mail, Phone, Asterisk, ArrowUpRight } from "lucide-react";
+import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { STORE } from "@/lib/data";
 import { NewsletterForm } from "@/components/newsletter-form";
 
@@ -67,15 +67,13 @@ export function SiteFooter() {
       <div className="border-b border-cream/10">
         <div className="container-x grid gap-8 py-12 md:grid-cols-2 md:items-center md:py-16">
           <div>
-            <p className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">
-              <Asterisk className="size-3.5" /> Newsletter
-            </p>
+            <p className="text-sm font-semibold text-gold">A note from us</p>
             <h2 className="mt-3 font-display text-3xl leading-tight md:text-4xl">
               Sign up &amp; get 10% off<span className="text-gold">.</span>
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-cream/60">
-              New models, restocks and deliberate-living notes from the Mumbai office. No spam — we
-              sells phones that fight it.
+              New models, restocks and notes from the Mumbai office. No spam — just useful updates
+              from a small-phone store.
             </p>
           </div>
           <NewsletterForm />
@@ -85,13 +83,7 @@ export function SiteFooter() {
       {/* Main footer */}
       <div className="container-x grid gap-12 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
         <div>
-          <Image
-            src="/images/brand/logo.svg"
-            alt="Dumbphones India"
-            width={150}
-            height={56}
-            className="h-12 w-auto rounded-sm bg-cream p-1"
-          />
+          <BrandLogo inverted />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/60">{STORE.blurb}</p>
           <div className="mt-6 flex items-center gap-2">
             {socials.map((s) => (
@@ -101,7 +93,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="grid size-9 place-items-center border border-cream/15 text-cream/70 transition-all hover:border-gold hover:text-gold"
+                className="grid size-9 place-items-center rounded-full border border-cream/15 text-cream/70 transition-all hover:border-gold hover:text-gold"
               >
                 <s.icon className="size-4" />
               </a>
@@ -110,7 +102,7 @@ export function SiteFooter() {
               href={STORE.socials.indiamart}
               target="_blank"
               rel="noreferrer"
-              className="ml-1 flex items-center gap-1 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-cream/50 transition-colors hover:text-gold"
+              className="ml-1 flex items-center gap-1 text-xs font-medium text-cream/55 transition-colors hover:text-gold"
             >
               IndiaMART <ArrowUpRight className="size-3" />
             </a>
@@ -118,7 +110,7 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="Quick links">
-          <h3 className="font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">Quick Links</h3>
+          <h3 className="text-sm font-semibold text-gold">Explore</h3>
           <ul className="mt-5 space-y-2.5">
             {quickLinks.map((l) => (
               <li key={l.href}>
@@ -131,7 +123,7 @@ export function SiteFooter() {
         </nav>
 
         <nav aria-label="Policies">
-          <h3 className="font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">Our Policies</h3>
+          <h3 className="text-sm font-semibold text-gold">Good to know</h3>
           <ul className="mt-5 space-y-2.5">
             {policyLinks.map((l) => (
               <li key={l.href}>
@@ -144,7 +136,7 @@ export function SiteFooter() {
         </nav>
 
         <div>
-          <h3 className="font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">Contact Us</h3>
+          <h3 className="text-sm font-semibold text-gold">Contact</h3>
           <a
             href={STORE.mapsUrl}
             target="_blank"
@@ -161,7 +153,7 @@ export function SiteFooter() {
               { dept: STORE.support, accent: false },
             ].map(({ dept }) => (
               <div key={dept.label}>
-                <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-cream/50">
+                <p className="text-xs font-semibold text-cream/60">
                   {dept.label}
                 </p>
                 <div className="mt-2 space-y-1.5">
@@ -177,7 +169,7 @@ export function SiteFooter() {
                   >
                     <Phone className="size-3.5 text-gold/70" /> {dept.phone}
                   </a>
-                  <p className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-cream/40">
+                  <p className="text-xs leading-5 text-cream/45">
                     {dept.hours}
                   </p>
                 </div>
@@ -190,18 +182,13 @@ export function SiteFooter() {
       {/* Bottom bar */}
       <div className="border-t border-cream/10">
         <div className="container-x flex flex-col items-center justify-between gap-4 py-6 md:flex-row">
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-cream/40">
-            © Copyright 2026, Dumbphones India
+          <p className="text-xs text-cream/45">
+            © {new Date().getFullYear()} Dumbphones India
           </p>
-          <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-            {["VISA", "Mastercard", "AMEX", "PayPal", "Apple Pay", "UPI / COD"].map((p) => (
-              <span
-                key={p}
-                className="border border-cream/15 px-2.5 py-1 font-mono text-[0.55rem] uppercase tracking-[0.1em] text-cream/50"
-              >
-                {p}
-              </span>
-            ))}
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-cream/50" aria-label="Shipping and support details">
+            <span>Free prepaid delivery</span>
+            <span>COD available; fee shown at checkout</span>
+            <span>Video-call support</span>
           </div>
         </div>
       </div>

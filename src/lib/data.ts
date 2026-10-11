@@ -11,19 +11,20 @@ import type { Category, Product, Review } from "./types";
 
 export const STORE = {
   name: "Dumbphones India",
-  tagline: "Dumb phones. Deliberate living.",
+  tagline: "Compact phones for a quieter day.",
   blurb:
-    "Born in 2025, Dumb Phones India is a movement for digital minimalism—creating simple, intentional phones that help you disconnect from noise and reclaim your time.",
+    "Started with a Cats22 flip phone in 2022, Dumbphones India helps people step back from digital noise without giving up essentials like WhatsApp, UPI and banking apps.",
+  logoUrl: "https://dumbphones.co.in/wp-content/uploads/2025/05/logo3-scaled-300x300.png",
   address:
     "1st floor, Regal Diamond Centre, Office No. 114/115, Charni Road, Opera House, Mumbai, Maharashtra 400004",
-  mapsUrl: "https://maps.app.goo.gl/nNELkjfo65Fo4zfP6",
+  mapsUrl: "https://maps.app.goo.gl/Gm4t51YisQfjBDSN7",
   sales: {
     label: "Sales",
     note: "For product queries, doubts, pricing, or anything you need help with before buying.",
     email: "sales@dumbphones.co.in",
     phone: "+91 91361 12273",
     phoneHref: "+919136112273",
-    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST",
+    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST · Sunday closed",
   },
   support: {
     label: "Customer Support",
@@ -31,7 +32,7 @@ export const STORE = {
     email: "support@dumbphones.co.in",
     phone: "+91 81041 12273",
     phoneHref: "+918104112273",
-    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST",
+    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST · Sunday closed",
   },
   grievance: {
     officer: "Abdullah",
@@ -140,8 +141,13 @@ export const PRODUCTS: Product[] = [
     inStock: false,
     bestSeller: false,
     newArrival: true,
-    images: ["https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2.webp", "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0010.webp"],
-    variants: colorVariants([BLACK], 49999, 55999, true),
+    images: [
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0010.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0002.webp",
+      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0003.webp",
+    ],
+    variants: colorVariants([BLACK], 49999, 55999, false),
     highlights: [
       "Physical QWERTY keyboard",
       "Global 5G unlocked",

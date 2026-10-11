@@ -13,8 +13,8 @@ import {
   PackageSearch,
   Phone,
   ArrowRight,
-  Asterisk,
 } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { useCart, useWishlist } from "@/lib/store";
 import { NAV_LINKS, PRODUCTS, STORE, searchProducts } from "@/lib/data";
 import { inr } from "@/lib/format";
@@ -63,19 +63,19 @@ export function SiteHeader() {
       {/* Announcement bar */}
       <div className="bg-ink text-cream">
         <div className="container-x flex h-9 items-center justify-between gap-4">
-          <p className="flex items-center gap-2 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-cream/80">
-            <Asterisk className="size-3 text-gold" strokeWidth={2.5} />
-            <span className="hidden sm:inline">Free shipping on prepaid orders across India</span>
-            <span className="sm:hidden">Free prepaid shipping</span>
-            <span className="text-cream/30">·</span>
-            <span>COD available — ₹599 handling fee</span>
+          <p className="flex items-center gap-2 text-[0.7rem] font-medium text-cream/85">
+            <span className="hidden sm:inline">Free prepaid shipping across India</span>
+            <span className="sm:hidden">Free prepaid delivery</span>
+            <span className="text-cream/35">·</span>
+            <span className="hidden sm:inline">COD available; fee shown at checkout</span>
+            <span className="sm:hidden">COD; fee at checkout</span>
           </p>
-          <div className="flex items-center gap-4 font-mono text-[0.6rem] uppercase tracking-[0.18em]">
-            <Link href="/track-order" className="hidden text-cream/80 transition-colors hover:text-gold md:block">
+          <div className="flex items-center gap-4 text-xs font-medium">
+            <Link href="/track-order" className="hidden text-cream/80 transition-colors hover:text-cream md:block">
               Track order
             </Link>
-            <a href={`tel:${STORE.sales.phoneHref}`} className="flex items-center gap-1.5 text-cream/80 transition-colors hover:text-gold">
-              <Phone className="size-3" />
+            <a href={`tel:${STORE.sales.phoneHref}`} className="flex items-center gap-1.5 text-cream/80 transition-colors hover:text-cream">
+              <Phone className="size-3.5" />
               <span className="hidden sm:inline">{STORE.sales.phone}</span>
               <span className="sm:hidden">Call</span>
             </a>
@@ -88,7 +88,7 @@ export function SiteHeader() {
         className={clsx(
           "sticky top-0 z-40 border-b transition-all duration-300",
           scrolled
-            ? "border-line bg-paper/90 shadow-[0_1px_24px_rgba(20,28,51,0.07)] backdrop-blur-xl"
+            ? "border-line/80 bg-paper/95 shadow-[0_1px_20px_rgba(45,39,27,0.06)] backdrop-blur-lg"
             : "border-transparent bg-paper",
         )}
       >
@@ -102,14 +102,7 @@ export function SiteHeader() {
               <Menu className="size-5" />
             </button>
             <Link href="/" className="flex items-center gap-3" aria-label="Dumbphones India — home">
-              <Image
-                src="/images/brand/logo.svg"
-                alt="Dumbphones India"
-                width={150}
-                height={56}
-                priority
-                className="h-10 w-auto md:h-12"
-              />
+              <BrandLogo priority mobileCompact />
             </Link>
           </div>
 
@@ -119,16 +112,16 @@ export function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 className={clsx(
-                  "group relative font-mono text-[0.68rem] uppercase tracking-[0.16em] transition-colors",
+                  "group relative text-[0.9rem] font-medium transition-colors",
                   pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href))
-                    ? "text-royal"
+                    ? "text-accent"
                     : "text-ink/70 hover:text-ink",
                 )}
               >
                 {link.label}
                 <span
                   className={clsx(
-                    "absolute -bottom-1.5 left-0 h-px bg-gold transition-all duration-300",
+                    "absolute -bottom-1.5 left-0 h-px bg-accent transition-all duration-300",
                     pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href))
                       ? "w-full"
                       : "w-0 group-hover:w-full",
@@ -196,7 +189,7 @@ export function SiteHeader() {
           )}
         >
           <div className="flex items-center justify-between border-b border-line p-4">
-            <Image src="/images/brand/logo.svg" alt="Dumbphones India" width={120} height={44} className="h-9 w-auto" />
+            <BrandLogo />
             <button
               onClick={() => setMenuOpen(false)}
               className="grid size-10 place-items-center text-ink"
@@ -206,14 +199,14 @@ export function SiteHeader() {
             </button>
           </div>
           <nav className="flex flex-col p-4" aria-label="Mobile">
-            {NAV_LINKS.map((link, i) => (
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center justify-between border-b border-line/70 py-4 font-display text-xl text-ink"
+                className="group flex items-center justify-between border-b border-line/70 py-4 font-display text-xl text-ink transition-colors hover:text-accent"
               >
                 <span>{link.label}</span>
-                <span className="font-mono text-[0.6rem] text-faint">0{i + 1}</span>
+                <ArrowRight className="size-4 text-faint transition-transform group-hover:translate-x-1 group-hover:text-accent" />
               </Link>
             ))}
             <Link
