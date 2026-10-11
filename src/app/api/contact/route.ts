@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/db";
 import { contactMessages } from "@/db/schema";
+import { databaseErrorResponse } from "@/lib/api-response";
+
+// Route handlers talk to PostgreSQL, so they must run on the Node.js runtime
+// and must never be prerendered during the build.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   let body: { name?: string; email?: string; phone?: string; topic?: string; message?: string };
@@ -30,7 +36,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error("Contact insert failed", err);
-    return NextResponse.json({ error: "Could not send your message. Please email us directly." }, { status: 500 });
+    return databaseErrorResponse("send your message");
   }
 
   return NextResponse.json({ ok: true }, { status: 201 });
