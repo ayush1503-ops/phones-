@@ -31,7 +31,12 @@
   --color-primary-foreground: var(--color-cream);
   --color-muted-foreground: var(--color-mute);
   --color-border: var(--color-line);
+  --color-input: var(--color-line-dark);
   --color-ring: var(--color-accent);
+  --color-secondary: var(--color-sand);
+  --color-secondary-foreground: var(--color-ink);
+  --color-destructive: var(--color-danger);
+  --color-destructive-foreground: var(--color-cream);
 
   --color-danger: #a13c32;
   --color-success: #2f6c50;
