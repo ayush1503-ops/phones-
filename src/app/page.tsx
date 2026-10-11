@@ -15,6 +15,7 @@ import { HomeHeroIntro } from "@/components/home-hero-intro";
 import { InstagramReel } from "@/components/instagram-reel";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
+import SonarGridDemo from "@/components/ui/sonar-grid-demo";
 import { Stars } from "@/components/stars";
 import { VideoCard, type CollaborationVideo } from "@/components/video-card";
 import { CATEGORIES, PRODUCTS, REVIEWS, STORE, getProduct } from "@/lib/data";
@@ -237,6 +238,10 @@ export default function HomePage() {
           Prices and stock can change. This catalogue is a snapshot, so please confirm availability
           with the team before paying.
         </p>
+      </section>
+
+      <section aria-label="Not sure which phone to pick?" className="relative overflow-hidden border-t border-line">
+        <SonarGridDemo />
       </section>
 
       <section className="border-y border-line bg-[#eeeae1]">
