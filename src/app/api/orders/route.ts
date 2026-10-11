@@ -2,9 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { orders } from "@/db/schema";
+import { databaseErrorResponse } from "@/lib/api-response";
 import { getProduct } from "@/lib/data";
 import { COD_FEE, orderId } from "@/lib/format";
 import type { CartItem } from "@/lib/types";
+
+// Route handlers talk to PostgreSQL, so they must run on the Node.js runtime
+// and must never be prerendered during the build.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * Manual-fulfilment order requests. This does not charge cards, collect the
@@ -105,10 +111,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error("Order insert failed", err);
-    return NextResponse.json(
-      { error: "We couldn't save your order. Please try again or call us." },
-      { status: 500 },
-    );
+    return databaseErrorResponse("save your order");
   }
 
   return NextResponse.json({ orderNumber: number, status, total }, { status: 201 });

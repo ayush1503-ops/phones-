@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/db";
 import { subscribers } from "@/db/schema";
+import { databaseErrorResponse } from "@/lib/api-response";
+
+// Route handlers talk to PostgreSQL, so they must run on the Node.js runtime
+// and must never be prerendered during the build.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   let body: { email?: string };
@@ -20,7 +26,7 @@ export async function POST(req: NextRequest) {
     await getDb().insert(subscribers).values({ email }).onConflictDoNothing();
   } catch (err) {
     console.error("Subscribe failed", err);
-    return NextResponse.json({ error: "Could not subscribe right now." }, { status: 500 });
+    return databaseErrorResponse("add you to the newsletter");
   }
 
   return NextResponse.json({ ok: true }, { status: 201 });

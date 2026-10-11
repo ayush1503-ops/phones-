@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/db";
 import { returnRequests } from "@/db/schema";
+import { databaseErrorResponse } from "@/lib/api-response";
+
+// Route handlers talk to PostgreSQL, so they must run on the Node.js runtime
+// and must never be prerendered during the build.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /**
  * Return / refund / replacement requests, exactly as described in Clause 6 of
@@ -55,10 +61,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error("Return request insert failed", err);
-    return NextResponse.json(
-      { error: "Could not submit your request. Please email support@dumbphones.co.in." },
-      { status: 500 },
-    );
+    return databaseErrorResponse("submit your request");
   }
 
   return NextResponse.json({ ok: true }, { status: 201 });
