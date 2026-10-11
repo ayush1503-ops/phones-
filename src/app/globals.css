@@ -22,6 +22,22 @@
   --color-gold-soft: #ead1c6;
   --color-mute: #6c7068;
   --color-faint: #96958c;
+
+  /* shadcn token names (used by src/components/ui/*), aliased onto the storefront palette.
+     `accent` and `muted` keep their storefront meaning above, so they are not redefined here. */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: var(--color-cream);
+  --color-muted-foreground: var(--color-mute);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line-dark);
+  --color-ring: var(--color-accent);
+  --color-secondary: var(--color-sand);
+  --color-secondary-foreground: var(--color-ink);
+  --color-destructive: var(--color-danger);
+  --color-destructive-foreground: var(--color-cream);
+
   --color-danger: #a13c32;
   --color-success: #2f6c50;
   --shadow-accent: 0 8px 20px rgba(176, 75, 49, 0.18);
