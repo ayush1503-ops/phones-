@@ -14,6 +14,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import type { Product } from "@/lib/types";
+import { STORE } from "@/lib/data";
 import { discountPct, inr, COD_FEE } from "@/lib/format";
 import { useCart } from "@/lib/store";
 import clsx from "clsx";
@@ -132,7 +133,7 @@ export function ProductPurchase({ product }: { product: Product }) {
           </>
         ) : (
           <a
-            href={`https://wa.me/919136112273?text=${encodeURIComponent(
+            href={`https://wa.me/${STORE.sales.phoneHref.replace(/\+/g, "")}?text=${encodeURIComponent(
               `Hi! Please notify me when the ${product.name} is back in stock.`,
             )}`}
             target="_blank"

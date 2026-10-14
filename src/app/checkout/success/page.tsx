@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { OrderSuccess } from "@/components/order-success";
 
 export const metadata: Metadata = {
-  title: "Order Request Received",
+  title: "Order Confirmed",
   robots: { index: false },
 };
 

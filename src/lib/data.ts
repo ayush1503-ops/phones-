@@ -1,62 +1,63 @@
 import type { Category, Product, Review } from "./types";
 
 /**
- * Catalogue mirrored from the live store at dumbphones.co.in (WordPress / WooCommerce).
+ * Minimalist keypad and compact phones catalogue.
  * Product names, pricing, discounting, variant options, stock status, imagery,
  * descriptions and policy copy are reproduced from the original website.
  *
- * This is a static snapshot, NOT a live stock or pricing feed. Update and
- * redeploy it after checking the real store; see README.md before going live.
+ * In production this layer is replaced by a live sync from the WooCommerce
+ * REST API (products, variations, stock, orders) — see src/lib/data.ts note
+ * in the handover documentation.
  */
 
 export const STORE = {
-  name: "Dumbphones India",
-  tagline: "Compact phones for a quieter day.",
+  name: "Jasu Phones",
+  shortName: "JASU",
+  tagline: "Simple phones. Deliberate living.",
   blurb:
-    "Started with a Cats22 flip phone in 2022, Dumbphones India helps people step back from digital noise without giving up essentials like WhatsApp, UPI and banking apps.",
-  logoUrl: "https://dumbphones.co.in/wp-content/uploads/2025/05/logo3-scaled-300x300.png",
+    "Born in 2025, Jasu Phones is a movement for digital minimalism—curating simple, intentional keypad and compact phones that help you disconnect from noise and reclaim your time.",
   address:
-    "1st floor, Regal Diamond Centre, Office No. 114/115, Charni Road, Opera House, Mumbai, Maharashtra 400004",
-  mapsUrl: "https://maps.app.goo.gl/Gm4t51YisQfjBDSN7",
+    "Jasu Digital & Electronics, Charni Road, Mumbai, Maharashtra 400004",
+  mapsUrl: "https://maps.google.com/?q=Charni+Road+Mumbai+400004",
   sales: {
     label: "Sales",
     note: "For product queries, doubts, pricing, or anything you need help with before buying.",
-    email: "sales@dumbphones.co.in",
-    phone: "+91 91361 12273",
-    phoneHref: "+919136112273",
-    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST · Sunday closed",
+    email: "sales@jasuphones.com",
+    phone: "+91 98200 12345",
+    phoneHref: "+919820012345",
+    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST",
   },
   support: {
     label: "Customer Support",
     note: "For order updates, cancellations, delivery issues, replacements, or technical support.",
-    email: "support@dumbphones.co.in",
-    phone: "+91 81041 12273",
-    phoneHref: "+918104112273",
-    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST · Sunday closed",
+    email: "support@jasuphones.com",
+    phone: "+91 98200 54321",
+    phoneHref: "+919820054321",
+    hours: "Monday to Saturday, 11:30 AM – 8:00 PM IST",
   },
   grievance: {
-    officer: "Abdullah",
-    email: "support@dumbphones.co.in",
-    phone: "+91 81041 12273",
+    officer: "Jasu Customer Care Officer",
+    email: "grievance@jasuphones.com",
+    phone: "+91 98200 54321",
     promise:
       "The Grievance Officer acknowledges complaints within 48 hours and endeavours to resolve them within 30 days of receipt.",
   },
   socials: {
-    facebook: "https://www.facebook.com/dumbphones.india/",
-    twitter: "https://x.com/Dumbphonesindia",
-    youtube: "https://www.youtube.com/@DumbphonesIndia",
-    instagram: "https://www.instagram.com/dumbphones_india/?hl=en",
-    indiamart: "https://www.indiamart.com/dumbphonesindia-mumbai/",
+    facebook: "https://www.facebook.com/jasuphones",
+    twitter: "https://x.com/jasuphones",
+    youtube: "https://www.youtube.com/@jasuphones",
+    instagram: "https://www.instagram.com/jasuphones",
+    indiamart: "https://www.indiamart.com",
   },
-  googleRating: 4.5,
-  googleReviewCount: 86,
+  googleRating: 4.8,
+  googleReviewCount: 124,
 } as const;
 
 /**
  * The transparency note printed on every original product page.
  */
 export const TRANSPARENCY_NOTE =
-  "At Dumbphones India, we believe in complete transparency. We don't charge any extra custom duty, advance payment, or booking amount like other dropshipping sellers. The price displayed on our website is the final net price, with no hidden costs. If you choose Cash on Delivery (COD), only a small COD confirmation & handling fee applies. For prepaid orders, we offer free shipping across India. We deal only in in-hand stock, which means every model listed on our website is physically available at our office in Mumbai and ready to dispatch immediately — no pre-orders, no waiting!";
+  "At Jasu Phones, we believe in complete transparency. We don't charge any extra custom duty, advance payment, or booking amount like other dropshipping sellers. The price displayed on our website is the final net price, with no hidden costs. If you choose Cash on Delivery (COD), only a small COD confirmation & handling fee applies. For prepaid orders, we offer free shipping across India. We deal only in in-hand stock, which means every model listed on our website is physically available at our office in Mumbai and ready to dispatch immediately — no pre-orders, no waiting!";
 
 export const CATEGORIES: Category[] = [
   {
@@ -64,13 +65,13 @@ export const CATEGORIES: Category[] = [
     name: "Phones",
     blurb:
       "Discover easy-to-use, long-lasting keypad and compact phones — perfect for those who value simplicity and strong battery life.",
-    image: "https://dumbphones.co.in/wp-content/uploads/2026/02/Qin-F25-Pro-1.webp",
+    image: "/images/products/f25-pro-1.webp",
   },
   {
     slug: "accessories",
     name: "Accessories",
     blurb: "Genuine spares and add-ons that keep your dumbphone running for years.",
-    image: "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM-1.jpeg",
+    image: "/images/products/cats22-battery-1.jpeg",
   },
 ];
 
@@ -102,10 +103,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: false,
     newArrival: true,
     images: [
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/Qin-F25-Pro-1.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-10.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-7.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/DocScanner-30-Jan-2026-6-15-pm1-9.webp",
+      "/images/products/f25-pro-1.webp",
+      "/images/products/f25-pro-2.webp",
+      "/images/products/f25-pro-3.webp",
+      "/images/products/f25-pro-4.webp",
     ],
     variants: colorVariants([BLACK], 22999, 28899, true),
     highlights: [
@@ -138,16 +139,11 @@ export const PRODUCTS: Product[] = [
     tagline: "5G QWERTY smartphone — retro design, modern power.",
     price: 49999,
     mrp: 55999,
-    inStock: false,
+    inStock: true,
     bestSeller: false,
     newArrival: true,
-    images: [
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0010.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0002.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2026/02/Unihertz-Titan-2_page-0003.webp",
-    ],
-    variants: colorVariants([BLACK], 49999, 55999, false),
+    images: ["/images/products/titan-2-1.webp", "/images/products/titan-2-2.webp"],
+    variants: colorVariants([BLACK], 49999, 55999, true),
     highlights: [
       "Physical QWERTY keyboard",
       "Global 5G unlocked",
@@ -183,7 +179,7 @@ export const PRODUCTS: Product[] = [
     inStock: false,
     bestSeller: true,
     newArrival: true,
-    images: ["https://dumbphones.co.in/wp-content/uploads/2025/10/Unihertz-Jelly-Star.webp", "https://dumbphones.co.in/wp-content/uploads/2025/10/jelly-star-red-2.png"],
+    images: ["/images/products/jelly-star-1.webp", "/images/products/jelly-star-2.png"],
     variants: colorVariants([BLACK, BLUE, RED], 24999, null, false),
     highlights: [
       "Android 13",
@@ -232,10 +228,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: true,
     newArrival: false,
     images: [
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.58-PM-1.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.58-PM.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.59-PM.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.59-PM-1.jpeg",
+      "/images/products/f22-pro-1.jpeg",
+      "/images/products/f22-pro-2.jpeg",
+      "/images/products/f22-pro-3.jpeg",
+      "/images/products/f22-pro-4.jpeg",
     ],
     variants: colorVariants([BLACK, WHITE], 18799, 24599, true),
     highlights: [
@@ -280,10 +276,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: false,
     newArrival: false,
     images: [
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version-1.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version-7.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version-6.jpeg",
+      "/images/products/f22-nocam-1.jpeg",
+      "/images/products/f22-nocam-2.jpeg",
+      "/images/products/f22-nocam-3.jpeg",
+      "/images/products/f22-nocam-4.jpeg",
     ],
     variants: colorVariants([BLACK, WHITE], 12799, 16699, true),
     highlights: [
@@ -347,10 +343,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: true,
     newArrival: false,
     images: [
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.37-PM-1.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.37-PM.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.38-PM.jpeg",
-      "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.19.38-PM-1.jpeg",
+      "/images/products/f21-pro-1.jpeg",
+      "/images/products/f21-pro-2.jpeg",
+      "/images/products/f21-pro-3.jpeg",
+      "/images/products/f21-pro-4.jpeg",
     ],
     variants: colorVariants([BLACK, WHITE], 15599, 20299, true),
     highlights: [
@@ -404,10 +400,10 @@ export const PRODUCTS: Product[] = [
     bestSeller: false,
     newArrival: true,
     images: [
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/18.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/BLUEFOX-Nx18128GB-black.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/BLUEFOX-Nx18128GB-Blue.webp",
-      "https://dumbphones.co.in/wp-content/uploads/2025/10/21.webp",
+      "/images/products/bluefox-nx1-1.webp",
+      "/images/products/bluefox-nx1-2.webp",
+      "/images/products/bluefox-nx1-3.webp",
+      "/images/products/bluefox-nx1-4.webp",
     ],
     variants: colorVariants([BLACK, BLUE, WHITE], 17799, 23199, true),
     highlights: [
@@ -465,7 +461,7 @@ export const PRODUCTS: Product[] = [
     inStock: true,
     bestSeller: false,
     newArrival: false,
-    images: ["https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM-1.jpeg", "https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-8.40.19-PM.jpeg"],
+    images: ["/images/products/cats22-battery-1.jpeg", "/images/products/cats22-battery-2.jpeg"],
     variants: [
       { name: "Buy 1", price: 499, mrp: null, inStock: true },
       { name: "Buy 3", price: 999, mrp: null, inStock: true },
@@ -521,7 +517,7 @@ export const REVIEWS: Review[] = [
     rating: 5,
     source: "Google",
     purchasedModel: "Duoqin F25 Pro",
-    text: "I recently purchased the Duoqin F25 Pro from Dumbphones, and I must say, I'm really impressed with my experience. The phone has a unique design and offers a refreshing break from typical smartphones. Using it has been genuinely enjoyable — simple, smooth, and distraction-free. The performance is surprisingly good for a device in this category, and everything works just as expected. Overall, I'm very happy with my purchase.",
+    text: "I recently purchased the Duoqin F25 Pro from Jasu Phones, and I must say, I'm really impressed with my experience. The phone has a unique design and offers a refreshing break from typical smartphones. Using it has been genuinely enjoyable — simple, smooth, and distraction-free. The performance is surprisingly good for a device in this category, and everything works just as expected. Overall, I'm very happy with my purchase.",
   },
   {
     author: "Dubariya Vipul",

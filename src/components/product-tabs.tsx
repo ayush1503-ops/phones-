@@ -47,7 +47,7 @@ export function ProductTabs({ product }: { product: Product }) {
               ))}
               <div className="mt-6 border-l-2 border-gold bg-gold-soft/20 p-5">
                 <p className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-gold-deep">
-                  <ShieldCheck className="size-3.5" /> The Dumbphones India promise
+                  <ShieldCheck className="size-3.5" /> The {STORE.name} promise
                 </p>
                 <p className="mt-2.5 text-[0.85rem] leading-[1.8] text-[#45413a]">{TRANSPARENCY_NOTE}</p>
               </div>
@@ -106,7 +106,7 @@ export function ProductTabs({ product }: { product: Product }) {
                 No product-specific questions yet. Ask us anything on{" "}
                 <a
                   className="text-royal underline underline-offset-4"
-                  href={`https://wa.me/919136112273?text=${encodeURIComponent(
+                  href={`https://wa.me/${STORE.sales.phoneHref.replace(/\+/g, "")}?text=${encodeURIComponent(
                     `Question about the ${product.name}: `,
                   )}`}
                   target="_blank"
@@ -164,7 +164,7 @@ export function ProductTabs({ product }: { product: Product }) {
                 for the {product.name.split("—")[0].trim()} from owners who visited our Mumbai office.
               </p>
               <a
-                href="https://www.google.com/search?q=dumbphones+india+mumbai+reviews"
+                href="https://www.google.com/search?q=jasu+phones+minimalist+keypad+reviews"
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-outline mt-6"

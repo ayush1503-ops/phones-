@@ -34,8 +34,8 @@ type OrderResult = {
 };
 
 const STAGES = [
-  { id: "placed", label: "Request received", icon: ClipboardList },
-  { id: "confirmed", label: "Order confirmed", icon: Check },
+  { id: "placed", label: "Order placed", icon: ClipboardList },
+  { id: "confirmed", label: "Payment confirmed", icon: Check },
   { id: "packed", label: "Packed & quality-checked", icon: PackageCheck },
   { id: "dispatched", label: "Dispatched — tracking on WhatsApp", icon: Truck },
   { id: "out", label: "Out for delivery", icon: Navigation },
@@ -45,11 +45,8 @@ const STAGES = [
 function stageIndex(status: string): number {
   switch (status) {
     case "awaiting_payment":
-    case "awaiting_cod_confirmation":
       return 0;
     case "confirmed":
-      return 1;
-    case "packed":
       return 2;
     case "dispatched":
       return 3;
@@ -58,7 +55,7 @@ function stageIndex(status: string): number {
     case "delivered":
       return 5;
     default:
-      return 0;
+      return 2;
   }
 }
 
@@ -149,11 +146,10 @@ export function TrackOrderView() {
                 · {result.paymentMethod === "cod" ? "Cash on Delivery" : "Prepaid"}
               </p>
             </div>
-            {(result.status === "awaiting_payment" || result.status === "awaiting_cod_confirmation") && (
+            {result.status === "awaiting_payment" && (
               <p className="mt-3 border border-gold/50 bg-gold-soft/25 px-4 py-3 text-[0.82rem] text-[#6b5817]">
-                Request received — please contact our team with your order number to confirm stock and
-                arrange {result.paymentMethod === "cod" ? "the COD handling fee" : "payment"}.
-                No payment has been collected on this website.
+                Awaiting payment — our team confirms stock and shares the secure payment link on your
+                registered WhatsApp number. Your order ships once payment is received.
               </p>
             )}
             <ol className="mt-6 space-y-0">

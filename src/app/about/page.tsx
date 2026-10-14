@@ -8,7 +8,7 @@ import { Reveal } from "@/components/reveal";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Dumb Phones India began in 2022 with a single Cats22 flip phone. Today we're a movement for digital minimalism — curated keypad and compact phones, tested in Mumbai, shipped across India.",
+    "Jasu Phones began in 2022 with a single Cats22 flip phone. Today we're a movement for digital minimalism — curated keypad and compact phones, tested in Mumbai, shipped across India.",
 };
 
 const FACTS = [
@@ -33,7 +33,7 @@ export default function AboutPage() {
           <Reveal delay={0.08}>
             <div className="relative aspect-[16/10] overflow-hidden border border-line">
               <Image
-                src="https://dumbphones.co.in/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-30-at-5.18.58-PM-1.jpeg"
+                src="/images/about/story-1.avif"
                 alt="A minimalist keypad phone, up close"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -44,8 +44,8 @@ export default function AboutPage() {
           <Reveal delay={0.16}>
             <div className="relative aspect-[16/10] overflow-hidden border border-line">
               <Image
-                src="https://dumbphones.co.in/wp-content/uploads/2026/05/Duoqin-F25-Pro-1024x546.webp"
-                alt="The Dumbphones India collection"
+                src="/images/about/phones-banner.webp"
+                alt="The Jasu Phones collection"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
@@ -68,8 +68,8 @@ export default function AboutPage() {
               </h2>
               <div className="relative mt-8 aspect-[4/3.4] overflow-hidden rounded-t-[8rem] border border-line-dark">
                 <Image
-                  src="https://dumbphones.co.in/wp-content/uploads/2025/10/Qin-F22-without-camera-version.jpeg"
-                  alt="A camera-free Qin keypad phone"
+                  src="/images/about/vintage-nokia.png"
+                  alt="The classic era of phones that inspired Jasu Phones"
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover"
@@ -96,7 +96,7 @@ export default function AboutPage() {
                 focus on what matters, and live with intention.
               </p>
               <p>
-                This insight led to the birth of <strong className="text-ink">Dumb Phones India</strong>—a
+                This insight led to the birth of <strong className="text-ink">Jasu Phones</strong>—a
                 brand dedicated to helping people disconnect from digital chaos without giving up
                 essential functionality. We&apos;re not just selling devices; we&apos;re part of a
                 growing <strong className="text-ink">movement for digital minimalism</strong>.
@@ -117,7 +117,7 @@ export default function AboutPage() {
         <Reveal delay={0.1}>
           <div className="space-y-5 text-[0.98rem] leading-[1.9] text-[#45413a]">
             <p>
-              At Dumb Phones, we provide a curated selection of modern keypad and flip phones that
+              At Jasu Phones, we provide a curated selection of modern keypad and flip phones that
               help people break free from digital overload while still staying connected. Our
               devices are designed for those who want to reduce screen time without sacrificing
               essentials like WhatsApp, UPI, banking apps, or authenticator access.

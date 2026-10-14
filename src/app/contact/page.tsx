@@ -7,7 +7,7 @@ import { Reveal } from "@/components/reveal";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Reach Dumbphones India — sales and customer support, Monday to Saturday 11:30 AM–8:00 PM IST. Opera House, Charni Road, Mumbai. WhatsApp, phone and email.",
+    "Reach Jasu Phones — sales and customer support, Monday to Saturday 11:30 AM–8:00 PM IST. Charni Road, Mumbai. WhatsApp, phone and email.",
 };
 
 const CHANNELS = [
@@ -32,7 +32,7 @@ export default function ContactPage() {
           Talk to a human. We have those.
         </h1>
         <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-mute">
-          Real people at a real office in Opera House, Mumbai — the same people who test and pack
+          Real people at our office in Mumbai — the same people who test and pack
           your phone.
         </p>
       </Reveal>

@@ -1,399 +1,426 @@
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
-  Clock3,
+  Asterisk,
+  BadgeCheck,
+  Banknote,
   MapPin,
-  MessageCircle,
-  Plus,
+  Phone,
+  Star,
+  Truck,
+  Video,
 } from "lucide-react";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { HomeHeroIntro } from "@/components/home-hero-intro";
-import { InstagramReel } from "@/components/instagram-reel";
+import { PRODUCTS, REVIEWS, CATEGORIES, STORE, getProduct } from "@/lib/data";
+import { discountPct, inr } from "@/lib/format";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
-import SonarGridDemo from "@/components/ui/sonar-grid-demo";
 import { Stars } from "@/components/stars";
-import { VideoCard, type CollaborationVideo } from "@/components/video-card";
-import { CATEGORIES, PRODUCTS, REVIEWS, STORE, getProduct } from "@/lib/data";
-import { inr } from "@/lib/format";
-
-export const metadata: Metadata = {
-  title: "Compact phones for a quieter day",
-  description:
-    "Keypad phones and compact Androids from Dumbphones India. Shop online, get free prepaid shipping, or talk to the Mumbai team before you choose.",
-};
 
 export const dynamic = "force-static";
 
-const HERO_IMAGE = "https://dumbphones.co.in/wp-content/uploads/2026/10/Duqin-F25-Pro.webp";
-const WHATSAPP_SALES = "https://wa.me/919136112273?text=Hi%20Dumbphones%20India%2C%20I%20have%20a%20question.";
-
-const COLLABORATION_VIDEOS: CollaborationVideo[] = [
-  {
-    videoId: "uhiajqOI43o",
-    title: "Qin F22 Pro — unboxing, set-up & how to buy",
-    description: "A first look at the phone, from unboxing to getting it set up.",
-    poster:
-      "https://dumbphones.co.in/wp-content/uploads/2026/01/Xiaomi-Qin-F22-Pro-Unboxing-Set-up-How-To-Buy-Youtube-video.webp",
-  },
-  {
-    videoId: "xr7gIccSI-A",
-    title: "Qin F22 Pro — touch-and-type review",
-    description: "A closer look at the small touchscreen and physical keypad.",
-    poster:
-      "https://dumbphones.co.in/wp-content/uploads/2026/01/Xiaomis-Touch-Type-Phone-Qin-F22-Pro-Youtube-video.webp",
-  },
-  {
-    videoId: "1-U54olXRQ0",
-    title: "Duoqin F22 Pro — review & unboxing",
-    description: "An independent unboxing and review of the Qin F22 Pro.",
-    poster:
-      "https://dumbphones.co.in/wp-content/uploads/2026/01/Xiaomi-Duoqin-F22-Pro-Review-Unboxing-Youtube-video.webp",
-  },
+const MARQUEE_ITEMS = [
+  "Tested before dispatch",
+  "In-hand Mumbai stock",
+  "COD across India",
+  "Live video-call support",
+  "No hidden charges",
+  "4.5★ · 86 Google reviews",
 ];
-
-const INSTAGRAM_REELS = [
-  { id: "DP9Efeyj1dq", creator: "dumbphones_india" },
-  { id: "DTu8h1ykkun", creator: "shakeuptech" },
-  { id: "DTSceqek0_7", creator: "gadgetgig" },
-  { id: "DS7Y-cLE1OE", creator: "punjabiiitech_" },
-  { id: "DWoBVLyTYNT", creator: "tech.ticks" },
-  { id: "DWQSX27EyaD", creator: "gadgetgig" },
-];
-
-const BUYING_POINTS = [
-  {
-    title: "Stock in Mumbai",
-    text: "The phones listed here are kept at our Opera House office.",
-  },
-  {
-    title: "Free prepaid delivery",
-    text: "There’s no delivery charge on prepaid orders across India.",
-  },
-  {
-    title: "Cash on delivery",
-    text: "COD is available across India; its handling fee is shown at checkout.",
-  },
-  {
-    title: "See it before you decide",
-    text: "Ask us for a video call and we’ll show you the phone in-hand.",
-  },
-];
-
-const FAQS = [
-  {
-    question: "Will WhatsApp, UPI and banking apps work?",
-    answer:
-      "Many of our compact Android phones support WhatsApp, UPI, banking and other Android apps. Compatibility varies by model, so check the specifications and FAQs on that product’s page before ordering.",
-  },
-  {
-    question: "How does Cash on Delivery work?",
-    answer:
-      "COD is available for almost all Indian PIN codes. A non-refundable confirmation and handling fee—normally ₹599, or the amount shown for a specific product—is payable in advance. The remaining amount is collected on delivery.",
-  },
-  {
-    question: "How much is delivery, and how long does it take?",
-    answer:
-      "Prepaid delivery is free. Orders placed by 5 PM are aimed to dispatch within 48 hours; courier transit times can vary. Orders are delivered within India only.",
-  },
-  {
-    question: "Can I see a phone before I order?",
-    answer:
-      "Yes. Message the sales team to arrange a live video call from the Mumbai office. You can see the phone in-hand and ask about setup or app compatibility before buying.",
-  },
-];
-
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  className = "",
-}: {
-  eyebrow: string;
-  title: ReactNode;
-  description?: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      <p className="kicker">{eyebrow}</p>
-      <h2 className="mt-3 max-w-3xl font-display text-4xl font-medium leading-[1.04] tracking-[-0.045em] text-ink sm:text-5xl md:text-6xl">
-        {title}
-      </h2>
-      {description && (
-        <p className="mt-4 max-w-2xl text-[0.97rem] leading-7 text-mute md:text-base md:leading-8">
-          {description}
-        </p>
-      )}
-    </div>
-  );
-}
 
 export default function HomePage() {
   const hero = getProduct("duoqin-f25-pro")!;
+  const bestSellers = PRODUCTS.filter((p) => p.bestSeller);
+  const newArrivals = PRODUCTS.filter((p) => p.newArrival);
+  const heroPct = discountPct(hero.price, hero.mrp);
 
   return (
     <>
-      <div className="relative overflow-hidden border-b border-line">
-        <div aria-hidden="true" className="hero-orbit" />
-        <ContainerScroll
-          titleComponent={
-            <HomeHeroIntro
-              shopHref="/shop"
-              whatsappHref={WHATSAPP_SALES}
-              rating={STORE.googleRating}
-              reviewCount={STORE.googleReviewCount}
-            />
-          }
-        >
-          <div className="hero-product-art relative h-full w-full">
-            <div aria-hidden="true" className="hero-product-sun" />
-            <Image
-              src={HERO_IMAGE}
-              alt="Duoqin F25 Pro compact Android phone"
-              fill
-              priority
-              sizes="(min-width: 1024px) 52vw, 94vw"
-              className="z-[1] object-contain p-5 sm:p-8 lg:p-7"
-              draggable={false}
-            />
-            <div className="hero-product-caption absolute inset-x-3 bottom-3 z-10 flex items-end justify-between gap-3 p-3 sm:inset-x-5 sm:bottom-5 sm:p-4">
-              <div>
-                <p className="text-xs font-medium text-accent">Featured phone</p>
-                <h2 className="mt-1 font-display text-xl font-medium leading-tight text-ink sm:text-2xl">
-                  {hero.name}
-                </h2>
-                <p className="mt-1 text-xs text-mute">Android 14 · 6GB RAM · 128GB</p>
-              </div>
-              <div className="shrink-0 text-right">
-                <p className="font-sans text-sm font-semibold text-ink sm:text-base">{inr(hero.price)}</p>
-                <Link
-                  href={`/product/${hero.slug}`}
-                  className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-accent transition-colors hover:text-ink"
-                >
-                  View phone <ArrowUpRight className="size-3.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </ContainerScroll>
-      </div>
-
-      <section className="border-b border-line bg-[#ebe6db]" aria-label="Buying with Dumbphones India">
-        <div className="container-x grid gap-x-8 py-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-10">
-          {BUYING_POINTS.map((point, index) => (
-            <Reveal key={point.title} delay={index * 0.04}>
-              <article className="border-t border-ink/15 py-5 sm:py-6">
-                <p className="font-display text-lg font-medium text-accent">0{index + 1}</p>
-                <h2 className="mt-2 font-sans text-sm font-semibold text-ink">{point.title}</h2>
-                <p className="mt-1.5 max-w-xs text-sm leading-6 text-mute">{point.text}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section id="collection" className="container-x scroll-mt-24 py-20 sm:py-24 md:py-28">
-        <Reveal>
-          <div className="grid gap-5 border-b border-line pb-8 md:grid-cols-[1.1fr_0.9fr] md:items-end md:gap-12 md:pb-10">
-            <SectionHeading
-              eyebrow="The shop"
-              title={<>Find the one that <em className="font-normal text-accent">fits.</em></>}
-            />
-            <div className="max-w-xl md:justify-self-end">
-              <p className="text-[0.96rem] leading-7 text-mute">
-                Some people want real keys. Others want WhatsApp and UPI on a smaller screen. Here’s
-                the full range—open a phone for its photos, specs and current availability.
+      {/* ---------------------------------------------------------------- */}
+      {/* HERO                                                              */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="grain relative overflow-hidden border-b border-line">
+        <div className="container-x grid items-center gap-12 py-14 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+          <div>
+            <Reveal>
+              <p className="kicker flex flex-wrap items-center gap-x-3 gap-y-2">
+                <span>Mumbai · Est. 2022</span>
+                <span className="text-line-dark">/</span>
+                <span>COD across India</span>
               </p>
-              <Link href="/shop" className="inline-flex min-h-11 items-center gap-2 pt-2 text-sm font-semibold text-accent transition-colors hover:text-ink">
-                Browse all {PRODUCTS.length} products <ArrowRight className="size-4" />
-              </Link>
-            </div>
-          </div>
-        </Reveal>
-
-        <div className="mt-8 grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {PRODUCTS.map((product, index) => (
-            <Reveal key={product.slug} delay={(index % 4) * 0.05} y={14}>
-              <ProductCard product={product} index={index} />
             </Reveal>
-          ))}
-        </div>
+            <Reveal delay={0.08}>
+              <h1 className="mt-5 font-display text-[2.9rem] font-medium leading-[1.02] tracking-[-0.01em] text-ink sm:text-6xl lg:text-[4.4rem]">
+                Dumb phones.
+                <br />
+                <em className="font-light italic text-royal">Deliberate</em> living.
+              </h1>
+            </Reveal>
+            <Reveal delay={0.16}>
+              <p className="mt-6 max-w-lg text-[1.02rem] leading-[1.75] text-mute">
+                India&apos;s home for minimalist keypad and compact phones — WhatsApp, UPI,
+                banking and calls, minus the infinite scroll. Every device is held, tested and
+                dispatched from our office in Mumbai.
+              </p>
+            </Reveal>
+            <Reveal delay={0.24} className="mt-8 flex flex-wrap gap-3">
+              <Link href="/shop" className="btn btn-primary">
+                Shop the collection <ArrowRight className="size-3.5" />
+              </Link>
+              <Link href="/about" className="btn btn-outline">
+                Our story
+              </Link>
+            </Reveal>
+            <Reveal delay={0.32}>
+              <dl className="mt-10 grid max-w-lg grid-cols-3 divide-x divide-line border-y border-line">
+                {[
+                  { k: "Google rating", v: `${STORE.googleRating}★`, s: `${STORE.googleReviewCount} reviews` },
+                  { k: "Dispatch aim", v: "48 hrs", s: "orders before 6 PM" },
+                  { k: "Catalogue", v: "8 devices", s: "7 phones · 1 accessory" },
+                ].map((stat) => (
+                  <div key={stat.k} className="px-4 py-4 first:pl-0">
+                    <dt className="font-mono text-[0.56rem] uppercase tracking-[0.16em] text-faint">
+                      {stat.k}
+                    </dt>
+                    <dd className="mt-1 font-display text-2xl text-ink">{stat.v}</dd>
+                    <dd className="font-mono text-[0.56rem] uppercase tracking-[0.12em] text-mute">
+                      {stat.s}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
 
-        <div className="mt-12 grid gap-4 border-y border-line py-5 sm:grid-cols-[1fr_auto] sm:items-center">
-          <p className="max-w-3xl text-sm leading-6 text-mute">
-            The price shown is the product price, with no customs-clearance charge. Prepaid shipping
-            is free; if you choose COD, the product-specific non-refundable confirmation fee is shown
-            before checkout.
-          </p>
-          <Link href="/shipping-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-accent">
-            Shipping details <ArrowUpRight className="size-4" />
-          </Link>
-        </div>
-        <p className="mt-4 text-xs leading-5 text-mute">
-          Prices and stock can change. This catalogue is a snapshot, so please confirm availability
-          with the team before paying.
-        </p>
-      </section>
-
-      <section aria-label="Not sure which phone to pick?" className="relative overflow-hidden border-t border-line">
-        <SonarGridDemo />
-      </section>
-
-      <section className="border-y border-line bg-[#eeeae1]">
-        <div className="container-x py-20 sm:py-24 md:py-28">
-          <Reveal>
-            <div className="mb-9 flex flex-wrap items-end justify-between gap-5 md:mb-11">
-              <SectionHeading
-                eyebrow="From the creators"
-                title={<>See one before you <em className="font-normal text-accent">choose.</em></>}
-                description="A few unboxings and reviews of the Qin F22 Pro. Tap a thumbnail to play; the video won’t load until you ask it to."
-              />
-              <a
-                href={STORE.socials.youtube}
-                target="_blank"
-                rel="noreferrer"
-                className="mb-1 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-accent"
-              >
-                More on YouTube <ArrowUpRight className="size-4" />
-              </a>
+          {/* Hero product frame */}
+          <Reveal delay={0.15} y={30}>
+            <div className="relative mx-auto w-full max-w-md">
+              <div className="absolute -left-6 top-8 hidden select-none font-display text-[7rem] font-medium italic leading-none text-ink/[0.05] lg:block">
+                F25
+              </div>
+              <Link href={`/product/${hero.slug}`} className="group relative block">
+                <div className="relative aspect-[4/4.6] overflow-hidden rounded-t-[11rem] border border-line-dark bg-white">
+                  <Image
+                    src={hero.images[0]}
+                    alt={hero.name}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 42vw, 90vw"
+                    className="object-contain p-10 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  />
+                  <span className="absolute left-1/2 top-6 -translate-x-1/2 whitespace-nowrap border border-ink/15 bg-cream/90 px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-ink backdrop-blur">
+                    Best keypad phone — 2026
+                  </span>
+                </div>
+                <div className="absolute -bottom-5 left-1/2 flex w-[88%] -translate-x-1/2 items-center justify-between border border-line bg-cream px-5 py-4 shadow-[0_18px_40px_rgba(20,28,51,0.12)]">
+                  <div>
+                    <p className="font-mono text-[0.56rem] uppercase tracking-[0.18em] text-faint">
+                      {hero.brand}
+                    </p>
+                    <p className="font-display text-lg text-ink">{hero.name}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono text-sm font-medium text-royal">{inr(hero.price)}</p>
+                    {heroPct && (
+                      <p className="font-mono text-[0.6rem] text-faint">
+                        <span className="line-through">{inr(hero.mrp!)}</span> −{heroPct}%
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </Link>
+              <div className="absolute -right-3 top-14 hidden rotate-90 items-center gap-2 font-mono text-[0.58rem] uppercase tracking-[0.3em] text-faint md:flex">
+                <span className="h-px w-8 bg-line-dark" /> Android 14 · Dual SIM
+              </div>
             </div>
           </Reveal>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {COLLABORATION_VIDEOS.map((video, index) => (
-              <Reveal key={video.videoId} delay={index * 0.06} y={14}>
-                <VideoCard video={video} />
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* MARQUEE                                                           */}
+      {/* ---------------------------------------------------------------- */}
+      <div className="overflow-hidden border-b border-line bg-ink py-3.5" aria-hidden>
+        <div className="flex w-max animate-marquee gap-0">
+          {[0, 1].map((half) => (
+            <div key={half} className="flex items-center">
+              {MARQUEE_ITEMS.map((item) => (
+                <span
+                  key={`${half}-${item}`}
+                  className="flex items-center gap-6 pr-6 font-mono text-[0.64rem] uppercase tracking-[0.22em] text-cream/75"
+                >
+                  {item}
+                  <Asterisk className="size-3.5 text-gold" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* BEST SELLERS                                                      */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="container-x py-20 md:py-28">
+        <Reveal>
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="kicker">01 — Best selling products</p>
+              <h2 className="mt-3 max-w-xl font-display text-4xl font-medium leading-[1.06] text-ink md:text-5xl">
+                The phones India is switching <em className="italic text-royal">down</em> to.
+              </h2>
+            </div>
+            <Link href="/shop" className="btn btn-outline">
+              View all products <ArrowRight className="size-3.5" />
+            </Link>
+          </div>
+        </Reveal>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {bestSellers.map((p, i) => (
+            <Reveal key={p.slug} delay={i * 0.08}>
+              <ProductCard product={p} index={i} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* FEATURE BAND — Best keypad phones                                 */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="container-x pb-20 md:pb-28">
+        <Reveal>
+          <Link
+            href={`/product/${hero.slug}`}
+            className="group relative block overflow-hidden border border-line"
+          >
+            <div className="relative aspect-[16/10] sm:aspect-[16/7] lg:aspect-[16/6]">
+              <Image
+                src="/images/products/f25-pro-banner.webp"
+                alt="Duoqin F25 Pro — Android 14 smart touchscreen phone"
+                fill
+                sizes="100vw"
+                className="object-cover object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/25 to-transparent" />
+            </div>
+            <div className="absolute inset-0 flex flex-col justify-end p-6 sm:justify-center sm:p-12">
+              <p className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">
+                <Asterisk className="size-3.5" /> Best keypad phones
+              </p>
+              <h3 className="mt-3 max-w-md font-display text-3xl font-medium leading-[1.08] text-cream sm:text-5xl">
+                Duoqin F25 Pro — Android 14 in a body your thumb remembers.
+              </h3>
+              <span className="btn btn-gold mt-6 w-fit">
+                Shop the F25 Pro <ArrowUpRight className="size-3.5" />
+              </span>
+            </div>
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* NEW ARRIVALS                                                      */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="border-y border-line bg-sand/40">
+        <div className="container-x py-20 md:py-28">
+          <Reveal>
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="kicker">02 — New arrivals</p>
+                <h2 className="mt-3 max-w-xl font-display text-4xl font-medium leading-[1.06] text-ink md:text-5xl">
+                  Fresh into our Mumbai stockroom.
+                </h2>
+              </div>
+              <p className="max-w-xs text-sm leading-relaxed text-mute">
+                No pre-orders, no waiting lists. If it&apos;s listed and in stock, it&apos;s physically on
+                our shelf — ready to ship today.
+              </p>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+            {newArrivals.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 0.06}>
+                <ProductCard product={p} index={i} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="container-x py-20 sm:py-24 md:py-28" aria-labelledby="instagram-heading">
+      {/* ---------------------------------------------------------------- */}
+      {/* CATEGORIES                                                        */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="container-x py-20 md:py-28">
         <Reveal>
-          <div className="mb-9 flex flex-wrap items-end justify-between gap-5 md:mb-11">
-            <SectionHeading
-              eyebrow="Out in the world"
-              title={<>A little inspiration from <em className="font-normal text-accent">Instagram.</em></>}
-              description="Short demos and reviews from Dumbphones India and the creators we work with."
-            />
-            <a href={STORE.socials.instagram} target="_blank" rel="noreferrer" className="mb-1 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-accent">
-              Follow along <ArrowUpRight className="size-4" />
-            </a>
-          </div>
+          <p className="kicker">03 — Browse the store</p>
+          <h2 className="mt-3 font-display text-4xl font-medium leading-[1.06] text-ink md:text-5xl">
+            Two shelves. Zero clutter.
+          </h2>
         </Reveal>
-        <div className="grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {INSTAGRAM_REELS.map((reel, index) => (
-            <Reveal key={reel.id} delay={(index % 3) * 0.05} y={12}>
-              <InstagramReel id={reel.id} creator={reel.creator} />
-            </Reveal>
-          ))}
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {CATEGORIES.map((cat, i) => {
+            const count = PRODUCTS.filter((p) => p.category === cat.slug).length;
+            const img =
+              cat.slug === "phones"
+                ? "/images/products/f25-pro-2.webp"
+                : "/images/products/cats22-battery-1.jpeg";
+            return (
+              <Reveal key={cat.slug} delay={i * 0.08}>
+                <Link
+                  href={`/category/${cat.slug}`}
+                  className="group relative block overflow-hidden border border-line bg-cream"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={img}
+                      alt={cat.name}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
+                    <div>
+                      <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-cream/70">
+                        {count} {count === 1 ? "product" : "products"}
+                      </p>
+                      <h3 className="mt-1 font-display text-3xl text-cream">{cat.name}</h3>
+                    </div>
+                    <span className="grid size-11 place-items-center border border-cream/30 text-cream transition-all group-hover:bg-gold group-hover:text-ink">
+                      <ArrowUpRight className="size-4.5" />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
-      <section className="bg-[#26352d] text-cream">
-        <div className="container-x grid items-center gap-10 py-20 sm:py-24 md:py-28 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <Reveal y={14}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[0.45rem] bg-[#39473f]">
-              <Image
-                src="https://dumbphones.co.in/wp-content/uploads/2025/05/phones_banner.webp"
-                alt="Keypad and compact phones from Dumbphones India"
-                fill
-                sizes="(min-width: 1024px) 48vw, 92vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1c2922]/75 to-transparent px-5 pb-5 pt-16">
-                <p className="text-sm font-medium text-white/90">The team and phones, in Mumbai.</p>
+      {/* ---------------------------------------------------------------- */}
+      {/* PHILOSOPHY                                                        */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="grain relative overflow-hidden bg-ink text-cream">
+        <div className="container-x grid gap-12 py-20 md:py-28 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+          <div className="relative order-2 lg:order-1">
+            <Reveal y={30}>
+              <div className="relative mx-auto aspect-[4/4.8] max-w-sm overflow-hidden rounded-t-[9rem] border border-cream/20">
+                <Image
+                  src="/images/about/vintage-nokia.png"
+                  alt="A vintage keypad phone — the spirit of deliberate technology"
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                  className="object-cover"
+                />
               </div>
-            </div>
-          </Reveal>
-          <div className="lg:py-8">
+              <p className="mt-4 text-center font-mono text-[0.58rem] uppercase tracking-[0.24em] text-cream/40">
+                Freedom, circa 2003 — updated for UPI
+              </p>
+            </Reveal>
+          </div>
+          <div className="order-1 lg:order-2">
             <Reveal>
-              <p className="kicker text-[#e59a74]">A little backstory</p>
-              <h2 className="mt-3 max-w-xl font-display text-4xl font-medium leading-[1.04] tracking-[-0.04em] text-cream sm:text-5xl md:text-6xl">
-                It started with one flip phone.
+              <p className="kicker">04 — Why we exist</p>
+              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.06] md:text-5xl">
+                It began with one <em className="italic text-gold">flip phone</em> in 2022.
               </h2>
             </Reveal>
-            <Reveal delay={0.08}>
-              <div className="mt-6 max-w-xl space-y-4 text-[0.96rem] leading-7 text-cream/75">
+            <Reveal delay={0.1}>
+              <div className="mt-6 max-w-xl space-y-4 text-[0.98rem] leading-[1.85] text-cream/70">
                 <p>
-                  In 2022, we listed a Cats22 flip phone online, expecting to resell a few. The
-                  response surprised us. People were looking for a way to step back from the noise,
-                  without giving up the things they still use every day.
+                  We casually listed a Cats22 flip phone on online marketplaces — just aiming to
+                  resell a few units. The response was overwhelming. People weren&apos;t buying a
+                  phone; they were looking for an escape from endless scrolling, constant
+                  notifications and the addictive cycle of social media.
                 </p>
                 <p>
-                  Today, we’re a small team in Mumbai with a considered range of keypad and compact
-                  Android phones. We keep stock in-hand, check devices before dispatch, and will show
-                  you a phone over video if you’d like a closer look.
+                  That insight became Dumb Phones India — a curated store for people who want to
+                  reclaim their time without giving up essentials like WhatsApp, UPI and banking
+                  apps. We test every device ourselves before dispatch, offer cash on delivery
+                  across India, and even show you your exact unit over a live video call.
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={0.15}>
-              <div className="mt-8 grid max-w-xl grid-cols-3 border-y border-cream/20 py-4">
-                <div className="pr-3">
-                  <p className="font-display text-2xl text-cream">2022</p>
-                  <p className="mt-1 text-xs leading-5 text-cream/55">first phone listed</p>
-                </div>
-                <div className="border-x border-cream/20 px-3">
-                  <p className="font-display text-2xl text-cream">Mumbai</p>
-                  <p className="mt-1 text-xs leading-5 text-cream/55">our home base</p>
-                </div>
-                <div className="pl-3">
-                  <p className="font-display text-2xl text-cream">In-hand</p>
-                  <p className="mt-1 text-xs leading-5 text-cream/55">not drop-shipped</p>
-                </div>
+            <Reveal delay={0.18}>
+              <div className="mt-9 grid grid-cols-2 gap-px border border-cream/15 bg-cream/15 sm:grid-cols-4">
+                {[
+                  { icon: BadgeCheck, label: "Verified originals" },
+                  { icon: Truck, label: "Pan-India delivery" },
+                  { icon: Banknote, label: "Cash on delivery" },
+                  { icon: Video, label: "Video-call support" },
+                ].map((f) => (
+                  <div key={f.label} className="flex flex-col items-center gap-2.5 bg-ink px-3 py-6 text-center">
+                    <f.icon className="size-5 text-gold" strokeWidth={1.6} />
+                    <span className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-cream/70">
+                      {f.label}
+                    </span>
+                  </div>
+                ))}
               </div>
             </Reveal>
-            <Reveal delay={0.2}>
-              <Link href="/about" className="btn btn-light mt-7">
-                More about us <ArrowRight className="size-4" />
+            <Reveal delay={0.24}>
+              <Link href="/about" className="btn btn-ghost-light mt-9">
+                Read our full story <ArrowRight className="size-3.5" />
               </Link>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="container-x py-20 sm:py-24 md:py-28">
-        <div className="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-16">
+      {/* ---------------------------------------------------------------- */}
+      {/* REVIEWS                                                           */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="container-x py-20 md:py-28">
+        <div className="grid gap-10 lg:grid-cols-[20rem_1fr]">
           <Reveal>
-            <div className="lg:sticky lg:top-28">
-              <SectionHeading
-                eyebrow="From our customers"
-                title={<>Good to hear <em className="font-normal text-accent">first-hand.</em></>}
-                description="A few recent notes from people who bought from us."
-              />
-              <div className="mt-7 flex items-center gap-4 border-y border-line py-4">
-                <span className="font-display text-5xl leading-none tracking-tight text-ink">{STORE.googleRating}</span>
-                <span>
-                  <Stars rating={STORE.googleRating} size="size-4" />
-                  <span className="mt-1 block text-sm text-mute">{STORE.googleReviewCount} Google reviews</span>
-                </span>
+            <div>
+              <p className="kicker">05 — Our happy customers</p>
+              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.06] text-ink md:text-5xl">
+                Reviewed on Google, verified at our door.
+              </h2>
+              <div className="mt-7 inline-flex flex-col border border-line bg-cream p-6">
+                <div className="flex items-center gap-3">
+                  <span className="font-display text-5xl text-ink">{STORE.googleRating}</span>
+                  <div>
+                    <Stars rating={STORE.googleRating} />
+                    <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-mute">
+                      {STORE.googleReviewCount} Google reviews
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="https://www.google.com/search?q=jasu+phones+minimalist+keypad+reviews"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-royal hover:text-royal-bright"
+                >
+                  Read all reviews <ArrowUpRight className="size-3" />
+                </a>
               </div>
-              <a
-                href="https://www.google.com/search?q=dumbphones+india+mumbai+reviews"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent transition-colors hover:text-ink"
-              >
-                Read more reviews <ArrowUpRight className="size-4" />
-              </a>
             </div>
           </Reveal>
-          <div className="grid gap-x-7 md:grid-cols-2">
-            {REVIEWS.slice(0, 4).map((review, index) => (
-              <Reveal key={review.author} delay={(index % 2) * 0.06} y={12}>
-                <figure className="flex h-full flex-col border-t border-line py-6 md:py-7">
-                  <Stars rating={review.rating} size="size-3.5" />
-                  <blockquote className="mt-4 flex-1 font-display text-xl leading-[1.45] tracking-[-0.015em] text-ink md:text-2xl">
+          <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 no-scrollbar lg:grid lg:grid-cols-2 lg:overflow-visible">
+            {REVIEWS.slice(0, 4).map((review, i) => (
+              <Reveal key={review.author} delay={i * 0.07} className="w-80 shrink-0 snap-start lg:w-auto">
+                <figure className="flex h-full flex-col border border-line bg-cream p-6">
+                  <Stars rating={review.rating} />
+                  <blockquote className="mt-4 flex-1 text-[0.9rem] leading-[1.75] text-[#45413a]">
                     “{review.text}”
                   </blockquote>
-                  <figcaption className="mt-5 flex items-baseline justify-between gap-4 border-t border-line/70 pt-3">
-                    <span className="text-sm font-semibold text-ink">{review.author}</span>
-                    {review.purchasedModel && <span className="text-right text-xs text-mute">{review.purchasedModel}</span>}
+                  <figcaption className="mt-5 flex items-center justify-between border-t border-line/70 pt-4">
+                    <div>
+                      <p className="text-sm font-medium text-ink">{review.author}</p>
+                      {review.purchasedModel && (
+                        <p className="font-mono text-[0.55rem] uppercase tracking-[0.12em] text-faint">
+                          Bought: {review.purchasedModel}
+                        </p>
+                      )}
+                    </div>
+                    <span className="flex items-center gap-1 font-mono text-[0.55rem] uppercase tracking-[0.12em] text-faint">
+                      <Star className="size-2.5 fill-gold text-gold" /> Google
+                    </span>
                   </figcaption>
                 </figure>
               </Reveal>
@@ -402,102 +429,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-[#eeeae1]">
-        <div className="container-x grid gap-10 py-20 sm:py-24 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Before you order"
-              title={<>A few practical <em className="font-normal text-accent">answers.</em></>}
-              description="If your question isn’t here, send us a message. We’d rather help you choose well than have you guess."
-            />
-            <div className="mt-6 flex items-start gap-3 text-sm leading-6 text-mute">
-              <Clock3 className="mt-0.5 size-4 shrink-0 text-accent" />
-              <p>Monday–Saturday, 11:30 AM–8:00 PM IST. Closed Sundays; we aim to reply within 24 hours on working days.</p>
-            </div>
-            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-              <Link href="/shipping-policy" className="text-accent hover:text-ink">Shipping policy</Link>
-              <Link href="/returns-refund-warranty-policy" className="text-accent hover:text-ink">Returns &amp; warranty</Link>
-            </div>
-          </Reveal>
-          <div className="divide-y divide-line border-y border-line">
-            {FAQS.map((faq, index) => (
-              <Reveal key={faq.question} delay={index * 0.04} y={10}>
-                <details className="group py-4 open:pb-5">
-                  <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-5 text-left text-[0.96rem] font-semibold text-ink marker:hidden [&::-webkit-details-marker]:hidden">
-                    {faq.question}
-                    <span className="grid size-8 shrink-0 place-items-center text-accent transition-transform duration-200 group-open:rotate-45">
-                      <Plus className="size-5" strokeWidth={1.6} />
-                    </span>
-                  </summary>
-                  <p className="max-w-3xl pb-1 pr-8 text-sm leading-7 text-mute">{faq.answer}</p>
-                </details>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="container-x py-20 sm:py-24 md:py-28">
-        <div className="grid gap-10 rounded-[0.65rem] bg-[#dfe4d8] p-6 sm:p-8 md:grid-cols-[0.88fr_1.12fr] md:items-center md:p-10 lg:p-12">
-          <Reveal>
-            <p className="kicker">Real people, in Mumbai</p>
-            <h2 className="mt-3 max-w-xl font-display text-4xl font-medium leading-[1.04] tracking-[-0.04em] text-ink sm:text-5xl">
-              Want a closer look?
-            </h2>
-            <p className="mt-4 max-w-lg text-[0.96rem] leading-7 text-mute">
-              Not sure which model is right? Send us a WhatsApp message. We’ll talk it through and, if
-              you like, show you the phone on a video call. No pressure to order.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href={WHATSAPP_SALES} target="_blank" rel="noreferrer" className="btn btn-primary">
-                <MessageCircle className="size-4" /> WhatsApp the team
-              </a>
-              <Link href="/contact" className="btn btn-outline">All contact details</Link>
-            </div>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <div className="grid gap-x-7 gap-y-6 sm:grid-cols-2 md:border-l md:border-ink/15 md:pl-8 lg:pl-10">
-              <a href={STORE.mapsUrl} target="_blank" rel="noreferrer" className="group sm:col-span-2">
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
-                  <MapPin className="size-4 text-accent" /> Find us in Mumbai
-                  <ArrowUpRight className="size-3.5 text-mute transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-mute">{STORE.address}</p>
-              </a>
-              <div>
-                <h3 className="text-sm font-semibold text-ink">Sales</h3>
-                <a href={`tel:${STORE.sales.phoneHref}`} className="mt-2 block text-sm text-mute hover:text-accent">{STORE.sales.phone}</a>
-                <a href={`mailto:${STORE.sales.email}`} className="mt-1 block text-sm text-mute hover:text-accent">{STORE.sales.email}</a>
+      {/* ---------------------------------------------------------------- */}
+      {/* VISIT / CONTACT BAND                                              */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="border-t border-line bg-sand/40">
+        <div className="container-x grid gap-8 py-16 md:grid-cols-3 md:py-20">
+          {[
+            {
+              icon: MapPin,
+              title: "Visit the office",
+              text: STORE.address,
+              action: { href: STORE.mapsUrl, label: "Open in Google Maps", external: true },
+            },
+            {
+              icon: Phone,
+              title: "Call before you buy",
+              text: `Sales: ${STORE.sales.phone} · Support: ${STORE.support.phone}. ${STORE.sales.hours}.`,
+              action: { href: `tel:${STORE.sales.phoneHref}`, label: "Call sales now", external: false },
+            },
+            {
+              icon: Video,
+              title: "See it over video call",
+              text: "We show you the exact unit in-hand before you pay — a Jasu signature.",
+              action: { href: "/contact", label: "Book a video call", external: false },
+            },
+          ].map((card, i) => (
+            <Reveal key={card.title} delay={i * 0.08}>
+              <div className="flex h-full flex-col border border-line bg-cream p-7">
+                <card.icon className="size-5 text-royal" strokeWidth={1.6} />
+                <h3 className="mt-4 font-display text-2xl text-ink">{card.title}</h3>
+                <p className="mt-2 flex-1 text-[0.88rem] leading-[1.7] text-mute">{card.text}</p>
+                <a
+                  href={card.action.href}
+                  {...(card.action.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                  className="mt-5 flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-royal transition-colors hover:text-royal-bright"
+                >
+                  {card.action.label} <ArrowUpRight className="size-3" />
+                </a>
               </div>
-              <div>
-                <h3 className="text-sm font-semibold text-ink">Customer support</h3>
-                <a href={`tel:${STORE.support.phoneHref}`} className="mt-2 block text-sm text-mute hover:text-accent">{STORE.support.phone}</a>
-                <a href={`mailto:${STORE.support.email}`} className="mt-1 block text-sm text-mute hover:text-accent">{STORE.support.email}</a>
-              </div>
-              <div className="sm:col-span-2">
-                <p className="text-xs leading-5 text-mute">
-                  Prices and availability can change. We’ll confirm current stock and the applicable
-                  COD fee before you pay.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="border-t border-line">
-        <div className="container-x flex flex-wrap items-center justify-between gap-4 py-6">
-          <p className="text-sm font-medium text-ink">Looking for something specific?</p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            {CATEGORIES.map((category) => (
-              <Link key={category.slug} href={`/category/${category.slug}`} className="inline-flex min-h-10 items-center gap-1.5 text-sm text-mute transition-colors hover:text-accent">
-                {category.name} <ArrowUpRight className="size-3.5" />
-              </Link>
-            ))}
-            <a href={STORE.socials.instagram} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center gap-1.5 text-sm text-mute transition-colors hover:text-accent">
-              Instagram <ArrowUpRight className="size-3.5" />
-            </a>
-          </div>
+            </Reveal>
+          ))}
         </div>
       </section>
     </>

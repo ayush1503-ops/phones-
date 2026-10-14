@@ -136,12 +136,12 @@ export function CheckoutForm() {
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label className="field-label" htmlFor="name">Full name</label>
-              <input id="name" className="field" value={form.name} onChange={set("name")} placeholder="Abdullah Khan" autoComplete="name" />
+              <input id="name" className="field" value={form.name} onChange={set("name")} placeholder="Jasu Patel" autoComplete="name" />
               {errors.name && <p className="mt-1.5 text-xs text-danger">{errors.name}</p>}
             </div>
             <div>
               <label className="field-label" htmlFor="phone">Mobile (WhatsApp active)</label>
-              <input id="phone" className="field" value={form.phone} onChange={set("phone")} placeholder="91361 12273" inputMode="numeric" autoComplete="tel" />
+              <input id="phone" className="field" value={form.phone} onChange={set("phone")} placeholder="98200 12345" inputMode="numeric" autoComplete="tel" />
               {errors.phone && <p className="mt-1.5 text-xs text-danger">{errors.phone}</p>}
               <p className="mt-1.5 font-mono text-[0.58rem] uppercase tracking-[0.1em] text-faint">
                 Tracking link is sent to this WhatsApp number
@@ -218,7 +218,7 @@ export function CheckoutForm() {
               </div>
               <p className="mt-3 font-medium text-ink">Prepaid — UPI, cards, net-banking</p>
               <p className="mt-1 text-[0.78rem] leading-relaxed text-mute">
-                Our team will confirm stock and arrange payment. Free shipping once paid.
+                Pay now in full. No delivery charges anywhere in India.
               </p>
             </button>
             <button
@@ -239,7 +239,7 @@ export function CheckoutForm() {
               </div>
               <p className="mt-3 font-medium text-ink">Cash on Delivery</p>
               <p className="mt-1 text-[0.78rem] leading-relaxed text-mute">
-                Pay the balance on arrival. A {inr(COD_FEE)} confirmation &amp; handling fee is arranged separately in advance
+                Pay on arrival. A {inr(COD_FEE)} confirmation &amp; handling fee is payable in advance
                 and is non-refundable, per our Shipping Policy.
               </p>
             </button>
@@ -247,8 +247,9 @@ export function CheckoutForm() {
 
           {form.paymentMethod === "prepaid" && (
             <p className="mt-4 border border-line bg-cream px-4 py-3 text-[0.78rem] leading-relaxed text-mute">
-              This form does not collect payment. Please contact our team with your order number to
-              confirm stock and arrange a secure payment link. Do not pay until they confirm the details.
+              After you place the order, our team confirms stock on WhatsApp and shares the secure
+              payment link for your order. In the live store this step charges directly through the
+              site&apos;s payment gateway.
             </p>
           )}
         </section>
@@ -308,7 +309,7 @@ export function CheckoutForm() {
             </>
           ) : (
             <>
-              <Lock className="size-3.5" /> Submit order request — {inr(total)}
+              <Lock className="size-3.5" /> Place order — {inr(total)}
             </>
           )}
         </button>

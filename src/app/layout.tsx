@@ -1,25 +1,40 @@
 import type { Metadata } from "next";
-import "@fontsource-variable/fraunces/index.css";
-import "@fontsource-variable/inter/index.css";
-import "@fontsource-variable/jetbrains-mono/index.css";
+import { Fraunces, Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider, WishlistProvider } from "@/lib/store";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+});
+
+const plex = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-plex",
+  weight: ["400", "500"],
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ??
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
-  ),
+  metadataBase: new URL("https://jasuphones.com"),
   title: {
-    default: "Dumbphones India — Keypad and Compact Android Phones",
-    template: "%s — Dumbphones India",
+    default: "Jasu Phones — Minimalist Keypad & Compact Phones",
+    template: "%s — Jasu Phones",
   },
   description:
-    "Shop keypad phones and compact Androids from a small team in Mumbai. Prepaid delivery is free, COD is available across India, and our team can help you choose over WhatsApp.",
+    "India's home for minimalist keypad and compact phones. Cash on Delivery across India, in-hand Mumbai stock, every device tested before dispatch. Qin, Duoqin, Unihertz, BLUEFOX & CAT.",
   keywords: [
+    "jasu phones",
+    "jasu dumbphones",
     "dumbphone india",
     "keypad phone",
     "minimalist phone",
@@ -33,7 +48,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" >
+    <html lang="en" className={`${fraunces.variable} ${archivo.variable} ${plex.variable}`}>
       <body className="flex min-h-screen flex-col">
         <CartProvider>
           <WishlistProvider>

@@ -6,7 +6,7 @@ import { ShopBrowser } from "@/components/shop-browser";
 export const metadata: Metadata = {
   title: "Shop All Products",
   description:
-    "Browse the full Dumbphones India catalogue — minimalist keypad phones, compact smartphones and genuine accessories. COD across India, free prepaid shipping.",
+    "Browse the full Jasu Phones catalogue — minimalist keypad phones, compact smartphones and genuine accessories. COD across India, free prepaid shipping.",
 };
 
 export default function ShopPage() {

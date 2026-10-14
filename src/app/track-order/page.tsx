@@ -5,7 +5,7 @@ import { TrackOrderView } from "@/components/track-order-view";
 export const metadata: Metadata = {
   title: "Track Your Order",
   description:
-    "Track your Dumbphones India order with your order number and registered mobile number. Live tracking links are also shared on WhatsApp after dispatch.",
+    "Track your Jasu Phones order with your order number and registered mobile number. Live tracking links are also shared on WhatsApp after dispatch.",
 };
 
 export default function TrackOrderPage() {
